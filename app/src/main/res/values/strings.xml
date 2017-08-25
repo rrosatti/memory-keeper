@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Memory Keeper</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TextView -->
+    <string name="forgot_pass"><u>Forgot password?</u></string>
+
+    <!-- EditText -->
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="repeat_password">repeat password</string>
+
+    <!-- Button -->
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="register_fingerprint">Register Fingerprint</string>
+    <string name="generate_qr_code">Generate QR Code</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+
 </resources>
