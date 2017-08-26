@@ -36,6 +36,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
+                startActivity(inMemoryList);
+            }
+        });
+
     }
 
     private void iniViews() {

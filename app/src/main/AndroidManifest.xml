@@ -21,7 +21,10 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:label="Sign Up"></activity>
+            android:label="@string/label_sign_up" />
+        <activity
+            android:name=".MemoryListActivity"
+            android:label="@string/label_memory_list"></activity>
     </application>
 
 </manifest>

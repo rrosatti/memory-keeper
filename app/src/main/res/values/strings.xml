@@ -18,4 +18,17 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
 
+    <!-- Label -->
+    <string name="label_sign_up">Sign Up</string>
+    <string name="label_memory_list">Memory List</string>
+
+    <!-- Temp Array -->
+    <array name="temp_list">
+        <item>Memory 1</item>
+        <item>Memory 2</item>
+        <item>Memory 3</item>
+        <item>Memory 4</item>
+        <item>Memory 5</item>
+    </array>
+
 </resources>
