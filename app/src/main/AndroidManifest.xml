@@ -24,7 +24,10 @@
             android:label="@string/label_sign_up" />
         <activity
             android:name=".MemoryListActivity"
-            android:label="@string/label_memory_list"></activity>
+            android:label="@string/label_memory_list" />
+        <activity
+            android:name=".NewMemoryActivity"
+            android:label="@string/label_new_memory" />
     </application>
 
 </manifest>

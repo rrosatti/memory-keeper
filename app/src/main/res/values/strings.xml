@@ -9,6 +9,8 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="repeat_password">repeat password</string>
+    <string name="title">Title</string>
+    <string name="long_description">Long description...</string>
 
     <!-- Button -->
     <string name="login">Login</string>
@@ -17,10 +19,12 @@
     <string name="generate_qr_code">Generate QR Code</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+    <string name="add_image">Add Image</string>
 
     <!-- Label -->
     <string name="label_sign_up">Sign Up</string>
     <string name="label_memory_list">Memory List</string>
+    <string name="label_new_memory">New Memory</string>
 
     <!-- Temp Array -->
     <array name="temp_list">
