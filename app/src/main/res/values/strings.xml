@@ -6,6 +6,7 @@
     <string name="forgot_pass"><u>Forgot password?</u></string>
 
     <!-- EditText -->
+    <string name="name">name</string>
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="repeat_password">repeat password</string>
