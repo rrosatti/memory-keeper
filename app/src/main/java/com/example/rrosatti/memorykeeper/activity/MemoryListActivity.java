@@ -1,10 +1,12 @@
-package com.example.rrosatti.memorykeeper;
+package com.example.rrosatti.memorykeeper.activity;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.rrosatti.memorykeeper.R;
 
 public class MemoryListActivity extends AppCompatActivity {
 

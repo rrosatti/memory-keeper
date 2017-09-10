@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,13 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:label="@string/label_sign_up" />
         <activity
-            android:name=".MemoryListActivity"
+            android:name=".activity.MemoryListActivity"
             android:label="@string/label_memory_list" />
         <activity
-            android:name=".NewMemoryActivity"
+            android:name=".activity.NewMemoryActivity"
             android:label="@string/label_new_memory" />
     </application>
 
