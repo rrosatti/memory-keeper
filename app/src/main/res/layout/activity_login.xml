@@ -1,53 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="40dp">
+    android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:scrollbars="none"
+        android:layout_centerInParent="true"
+        android:padding="40dp">
 
-        <EditText
-            android:id="@+id/activity_login_et_username"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"/>
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/activity_login_et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/activity_login_et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"/>
 
-        <TextView
-            android:id="@+id/txt_forgot_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/forgot_pass"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp" />
+            <EditText
+                android:id="@+id/activity_login_et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:layout_marginTop="10dp"/>
 
-        <Button
-            android:id="@+id/bt_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:layout_marginTop="20dp"/>
+            <TextView
+                android:id="@+id/txt_forgot_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_pass"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp" />
 
-        <Button
-            android:id="@+id/bt_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/signup"/>
+            <Button
+                android:id="@+id/bt_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:layout_marginTop="20dp"/>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/bt_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signup"
+                android:layout_marginTop="10dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/bt_login_with_fingerprint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fingerprint_icon"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"/>
+
+                <ImageButton
+                    android:id="@+id/bt_login_with_qr_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/qr_code_icon"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>
