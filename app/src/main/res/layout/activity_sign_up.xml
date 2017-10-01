@@ -5,26 +5,26 @@
     android:padding="40dp">
 
     <LinearLayout
-        android:id="@+id/activity_sign_up_top"
+        android:id="@+id/activitySignUpTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/activity_sign_up_et_name"
+            android:id="@+id/activitySignUpEtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"/>
 
         <EditText
-            android:id="@+id/activity_sign_up_et_username"
+            android:id="@+id/activitySignUpEtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
             android:layout_marginTop="10dp"/>
         
         <EditText
-            android:id="@+id/activity_sign_up_et_password"
+            android:id="@+id/activitySignUpEtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -32,7 +32,7 @@
             android:layout_marginTop="10dp"/>
         
         <EditText
-            android:id="@+id/activity_sign_up_et_repeat_password"
+            android:id="@+id/activitySignUpEtRepeatPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/repeat_password"
@@ -40,14 +40,14 @@
             android:layout_marginTop="10dp"/>
         
         <Button
-            android:id="@+id/activity_sign_up_bt_register_fingerprint"
+            android:id="@+id/activitySignUpBtRegisterFingerprint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/register_fingerprint"
             android:layout_marginTop="40dp"/>
 
         <Button
-            android:id="@+id/activity_sign_up_bt_generate_qr_code"
+            android:id="@+id/activitySignUpBtGenerateQrCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/generate_qr_code"
@@ -59,18 +59,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/activity_sign_up_top"
+        android:layout_below="@+id/activitySignUpTop"
         android:layout_marginTop="40dp">
 
         <Button
-            android:id="@+id/activity_sign_up_bt_cancel"
+            android:id="@+id/activitySignUpBtCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/activity_sign_up_bt_ok"
+            android:id="@+id/activitySignUpBtOk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/ok"

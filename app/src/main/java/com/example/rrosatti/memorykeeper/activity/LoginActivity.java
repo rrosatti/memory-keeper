@@ -44,16 +44,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btLoginWithQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getApplicationContext(), QRCodeLoginActivity.class);
+                startActivity(in);
+            }
+        });
+
     }
 
     private void iniViews() {
-        etUsername = (EditText) findViewById(R.id.activity_login_et_username);
-        etPassword = (EditText) findViewById(R.id.activity_login_et_password);
-        btLogin = (Button) findViewById(R.id.bt_login);
-        btSignUp = (Button) findViewById(R.id.bt_signup);
-        txtForgotPassword = (TextView) findViewById(R.id.txt_forgot_pass);
-        btLoginWithFingerprint = (ImageButton) findViewById(R.id.bt_login_with_fingerprint);
-        btLoginWithQRCode = (ImageButton) findViewById(R.id.bt_login_with_qr_code);
+        etUsername = (EditText) findViewById(R.id.activityLoginEtUsername);
+        etPassword = (EditText) findViewById(R.id.activityLoginEtPassword);
+        btLogin = (Button) findViewById(R.id.btLogin);
+        btSignUp = (Button) findViewById(R.id.btSignup);
+        txtForgotPassword = (TextView) findViewById(R.id.txtForgotPass);
+        btLoginWithFingerprint = (ImageButton) findViewById(R.id.btLoginWithFingerprint);
+        btLoginWithQRCode = (ImageButton) findViewById(R.id.btLoginWithQrCode);
     }
 
 }

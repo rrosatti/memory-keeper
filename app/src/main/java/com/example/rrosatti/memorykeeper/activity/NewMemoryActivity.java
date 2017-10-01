@@ -32,10 +32,10 @@ public class NewMemoryActivity extends AppCompatActivity {
     }
 
     private void iniViews() {
-        etTitle = (EditText) findViewById(R.id.activity_new_memory_et_title);
-        etLongDescription = (EditText) findViewById(R.id.activity_new_memory_et_description);
-        btAddImage = (Button) findViewById(R.id.activity_new_memory_bt_add_image);
-        btCancel = (Button) findViewById(R.id.activity_new_memory_bt_cancel);
-        btOk = (Button) findViewById(R.id.activity_new_memory_bt_ok);
+        etTitle = (EditText) findViewById(R.id.activityNewMemoryEtTitle);
+        etLongDescription = (EditText) findViewById(R.id.activityNewMemoryEtDescription);
+        btAddImage = (Button) findViewById(R.id.activityNewMemoryBtAddImage);
+        btCancel = (Button) findViewById(R.id.activityNewMemoryBtCancel);
+        btOk = (Button) findViewById(R.id.activityNewMemoryBtOk);
     }
 }

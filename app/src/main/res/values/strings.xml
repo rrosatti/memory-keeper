@@ -21,11 +21,13 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="add_image">Add Image</string>
+    <string name="read_qrcode">Read QRCode</string>
 
     <!-- Label -->
     <string name="label_sign_up">Sign Up</string>
     <string name="label_memory_list">Memory List</string>
     <string name="label_new_memory">New Memory</string>
+    <string name="label_qrcode_login">QRCode Login</string>
 
     <!-- Temp Array -->
     <array name="temp_list">

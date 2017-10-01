@@ -29,6 +29,6 @@ public class MemoryListActivity extends AppCompatActivity {
     }
 
     private void iniViews() {
-        btNewMemory = (FloatingActionButton) findViewById(R.id.bt_new_memory);
+        btNewMemory = (FloatingActionButton) findViewById(R.id.btNewMemory);
     }
 }

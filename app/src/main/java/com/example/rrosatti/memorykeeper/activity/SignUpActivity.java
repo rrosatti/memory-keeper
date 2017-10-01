@@ -35,13 +35,13 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void iniViews() {
-        etName = (EditText) findViewById(R.id.activity_sign_up_et_name);
-        etUsername = (EditText) findViewById(R.id.activity_sign_up_et_username);
-        etPassword = (EditText) findViewById(R.id.activity_sign_up_et_password);
-        etRepeatPassword = (EditText) findViewById(R.id.activity_sign_up_et_repeat_password);
-        btRegisterFingerprint = (Button) findViewById(R.id.activity_sign_up_bt_register_fingerprint);
-        btGenerateQRCode = (Button) findViewById(R.id.activity_sign_up_bt_generate_qr_code);
-        btCancel = (Button) findViewById(R.id.activity_sign_up_bt_cancel);
-        btOk = (Button) findViewById(R.id.activity_sign_up_bt_ok);
+        etName = (EditText) findViewById(R.id.activitySignUpEtName);
+        etUsername = (EditText) findViewById(R.id.activitySignUpEtUsername);
+        etPassword = (EditText) findViewById(R.id.activitySignUpEtPassword);
+        etRepeatPassword = (EditText) findViewById(R.id.activitySignUpEtRepeatPassword);
+        btRegisterFingerprint = (Button) findViewById(R.id.activitySignUpBtRegisterFingerprint);
+        btGenerateQRCode = (Button) findViewById(R.id.activitySignUpBtGenerateQrCode);
+        btCancel = (Button) findViewById(R.id.activitySignUpBtCancel);
+        btOk = (Button) findViewById(R.id.activitySignUpBtOk);
     }
 }
