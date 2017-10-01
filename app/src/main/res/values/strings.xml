@@ -4,6 +4,7 @@
 
     <!-- TextView -->
     <string name="forgot_pass"><u>Forgot password?</u></string>
+    <string name="fingerprint_login_description">One-touch Sign In</string>
 
     <!-- EditText -->
     <string name="name">name</string>
@@ -28,6 +29,7 @@
     <string name="label_memory_list">Memory List</string>
     <string name="label_new_memory">New Memory</string>
     <string name="label_qrcode_login">QRCode Login</string>
+    <string name="label_fingerprint_login">Fingerprint Login</string>
 
     <!-- Temp Array -->
     <array name="temp_list">

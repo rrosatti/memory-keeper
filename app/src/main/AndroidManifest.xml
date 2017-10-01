@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +24,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SignUpActivity"
             android:label="@string/label_sign_up"
@@ -39,6 +40,10 @@
         <activity
             android:name=".activity.QRCodeLoginActivity"
             android:label="@string/label_qrcode_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FingerprintLoginActivity"
+            android:label="@string/label_fingerprint_login"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
