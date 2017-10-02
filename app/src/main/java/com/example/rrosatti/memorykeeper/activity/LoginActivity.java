@@ -52,6 +52,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btLoginWithFingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getApplicationContext(), FingerprintLoginActivity.class);
+                startActivity(in);
+            }
+        });
+
     }
 
     private void iniViews() {

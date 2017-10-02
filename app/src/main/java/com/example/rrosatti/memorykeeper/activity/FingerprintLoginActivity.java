@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.rrosatti.memorykeeper.FingerprintHandler;
 import com.example.rrosatti.memorykeeper.Manifest;
 import com.example.rrosatti.memorykeeper.R;
 
@@ -75,8 +76,8 @@ public class FingerprintLoginActivity extends AppCompatActivity {
                     txtTemp.setText("Register at least one fingerprint in Settings");
                 } else {
                     // check if lock screen is enable or not
-                    if (!keyguardManager.isKeyguardLocked()) {
-                        txtTemp.setText("Lock screen security not enable in Settings");
+                    if (!keyguardManager.isKeyguardSecure()) {
+                        txtTemp.setText("Lock screen security not enabled in Settings");
                     } else {
                         generateKey();
 
@@ -116,7 +117,7 @@ public class FingerprintLoginActivity extends AppCompatActivity {
             keyStore.load(null);
             keyGenerator.init(new
                     KeyGenParameterSpec.Builder(KEY_NAME,
-                            KeyProperties.PURPOSE_DECRYPT)
+                            KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                     .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
                     .setUserAuthenticationRequired(true)
                     .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
