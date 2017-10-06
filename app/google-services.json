@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "100894483478",
+    "firebase_url": "https://memorykeeper-a053b.firebaseio.com",
+    "project_id": "memorykeeper-a053b",
+    "storage_bucket": "memorykeeper-a053b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100894483478:android:443beb950a724815",
+        "android_client_info": {
+          "package_name": "com.example.rrosatti.memorykeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100894483478-ehps5ccj48biv3k3il7amvh34c41se5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2gqgc_iOiJpBlL8jwEFl36v3WmPL6VDM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

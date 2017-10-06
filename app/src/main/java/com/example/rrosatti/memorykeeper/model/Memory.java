@@ -8,31 +8,31 @@ import android.graphics.Bitmap;
 
 public class Memory {
 
-    private long id;
+    private String memoryId;
     private String title;
     private String description;
-    private Bitmap img;
+    private String img; // Bitmap
 
     public Memory() {}
 
-    public Memory(long id, String title, String description) {
-        this.id = id;
+    public Memory(String memoryId, String title, String description) {
+        this.memoryId = memoryId;
         this.title = title;
         this.description = description;
         this.img = null;
     }
 
-    public Memory(long id, String title, String description, Bitmap img) {
-        this(id, title, description);
+    public Memory(String memoryId, String title, String description, String img) {
+        this(memoryId, title, description);
         this.img = img;
     }
 
-    public long getId() {
-        return id;
+    public String getId() {
+        return memoryId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.memoryId = id;
     }
 
     public String getTitle() {
@@ -51,11 +51,14 @@ public class Memory {
         this.description = description;
     }
 
-    public Bitmap getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(Bitmap img) {
+    public void setImg(String img) {
         this.img = img;
     }
+
+
+    //TODO: create a method to convert from String to Bitmap
 }

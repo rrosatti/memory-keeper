@@ -3,52 +3,41 @@ package com.example.rrosatti.memorykeeper.model;
 import android.graphics.Bitmap;
 import android.hardware.fingerprint.FingerprintManager;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by rrosatti on 9/10/17.
  */
 
 public class User {
 
-    private long id;
+    private String userId;
     private String name;
     private String username;
     private String password;
-    private Bitmap qrCode;
-    private FingerprintManager fingerprintManager; // I don't know if it's the right one
+    private String qrCode; //Bitmap
+    private String fingerprint; // FingerprintManager
+    private String memoryId;
 
     public User() {}
 
-    public User(long id, String name, String username, String password) {
-        this.id = id;
+    public User(String userId, String name, String username, String password, String qrCode,
+                String fingerprint, String memoryId) {
+        this.userId = userId;
         this.name = name;
         this.username = username;
         this.password = password;
-        this.qrCode = null;
-        this.fingerprintManager = null;
-    }
-
-    public User(long id, String name, String username, String password, Bitmap qrCode) {
-        this(id, name, username, password);
         this.qrCode = qrCode;
+        this.fingerprint = fingerprint;
+        this.memoryId = memoryId;
     }
 
-    public User(long id, String name, String username, String password, FingerprintManager fingerprintManager) {
-        this(id, name, username, password);
-        this.fingerprintManager = fingerprintManager;
+    public String getUserId() {
+        return userId;
     }
 
-    public User(long id, String name, String username, String password,
-                Bitmap qrCode, FingerprintManager fingerprintManager) {
-        this(id, name, username, password, qrCode);
-        this.fingerprintManager = fingerprintManager;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -75,19 +64,30 @@ public class User {
         this.password = password;
     }
 
-    public Bitmap getQrCode() {
+    public String getQrCode() {
         return qrCode;
     }
 
-    public void setQrCode(Bitmap qrCode) {
+    public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
     }
 
-    public FingerprintManager getFingerprintManager() {
-        return fingerprintManager;
+    public String getFingerprint() {
+        return fingerprint;
     }
 
-    public void setFingerprintManager(FingerprintManager fingerprintManager) {
-        this.fingerprintManager = fingerprintManager;
+    public void setFingerprint(String fingerprint) {
+        this.fingerprint = fingerprint;
     }
+
+    public String getMemoryId() {
+        return memoryId;
+    }
+
+    public void setMemoryId(String memoryId) {
+        this.memoryId = memoryId;
+    }
+
+
+    //TODO: create methods to convert String to Bitmap and FingerprintManager?
 }

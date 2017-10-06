@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.rrosatti.memorykeeper.activity.LoginActivity">
     <item
-        android:id="@+id/action_settings"
+        android:userId="@+userId/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />

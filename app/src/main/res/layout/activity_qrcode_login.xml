@@ -11,12 +11,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtQRCodeResult"
+            android:userId="@+userId/txtQRCodeResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btReadQRCode"
+            android:userId="@+userId/btReadQRCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/read_qrcode"

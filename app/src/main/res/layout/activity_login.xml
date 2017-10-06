@@ -16,13 +16,13 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/activityLoginEtUsername"
+                android:userId="@+userId/activityLoginEtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/username"/>
 
             <EditText
-                android:id="@+id/activityLoginEtPassword"
+                android:userId="@+userId/activityLoginEtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -30,7 +30,7 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/txtForgotPass"
+                android:userId="@+userId/txtForgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_pass"
@@ -38,14 +38,14 @@
                 android:layout_marginTop="20dp" />
 
             <Button
-                android:id="@+id/btLogin"
+                android:userId="@+userId/btLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
                 android:layout_marginTop="20dp"/>
 
             <Button
-                android:id="@+id/btSignup"
+                android:userId="@+userId/btSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signup"
@@ -58,7 +58,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/btLoginWithFingerprint"
+                    android:userId="@+userId/btLoginWithFingerprint"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/fingerprint_icon"
@@ -67,7 +67,7 @@
                     android:background="@null"/>
 
                 <ImageButton
-                    android:id="@+id/btLoginWithQrCode"
+                    android:userId="@+userId/btLoginWithQrCode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/qr_code_icon"
