@@ -14,19 +14,19 @@
             android:padding="40dp">
 
             <LinearLayout
-                android:userId="@+userId/activityNewMemoryContainerTop"
+                android:id="@+id/activityNewMemoryContainerTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <EditText
-                    android:userId="@+userId/activityNewMemoryEtTitle"
+                    android:id="@+id/activityNewMemoryEtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title"/>
 
                 <EditText
-                    android:userId="@+userId/activityNewMemoryEtDescription"
+                    android:id="@+id/activityNewMemoryEtDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/long_description"
@@ -35,7 +35,7 @@
                     android:gravity="bottom|start"/>
 
                 <Button
-                    android:userId="@+userId/activityNewMemoryBtAddImage"
+                    android:id="@+id/activityNewMemoryBtAddImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/add_image"
@@ -44,22 +44,22 @@
             </LinearLayout>
 
             <LinearLayout
-                android:userId="@+userId/activityNewMemoryContainerBottom"
+                android:id="@+id/activityNewMemoryContainerBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="40dp"
-                android:layout_below="@userId/activityNewMemoryContainerTop">
+                android:layout_below="@id/activityNewMemoryContainerTop">
 
                 <Button
-                    android:userId="@+userId/activityNewMemoryBtCancel"
+                    android:id="@+id/activityNewMemoryBtCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
                     android:layout_weight="1"/>
 
                 <Button
-                    android:userId="@+userId/activityNewMemoryBtOk"
+                    android:id="@+id/activityNewMemoryBtOk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/ok"
