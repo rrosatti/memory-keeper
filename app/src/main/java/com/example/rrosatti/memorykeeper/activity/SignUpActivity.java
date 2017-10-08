@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.example.rrosatti.memorykeeper.model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.BarcodeFormat;
@@ -100,6 +101,27 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!checkUserInput()) return;
+
+                User user = new User();
+                user.setName(etName.getText().toString());
+                user.setUsername(etUsername.getText().toString());
+                user.setPassword(etPassword.getText().toString());
+                user.setQrCode(pathQrCode);
+                user.setFingerprint("");
+
+                String key = userDatabase.push().getKey();
+                user.setUserId(key);
+                userDatabase.child(key).setValue(user);
+
+                finish();
+            }
+        });
     }
 
     private void iniViews() {
@@ -116,13 +138,14 @@ public class SignUpActivity extends AppCompatActivity {
         // save imageView in gallery
         String cameraPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
         File cachePath = new File(cameraPath + "/memory-keeper-qr-code.jpg");
-        pathQrCode = cameraPath.toString();
-        System.out.println("Path: " + pathQrCode);
+        pathQrCode = cachePath.toString();
         try {
             cachePath.createNewFile();
             FileOutputStream outputStream = new FileOutputStream(cachePath);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.close();
+            Toast.makeText(getApplicationContext(), "QR Code generated and saved in: " + pathQrCode,
+                    Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

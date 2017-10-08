@@ -17,19 +17,17 @@ public class User {
     private String password;
     private String qrCode; //Bitmap
     private String fingerprint; // FingerprintManager
-    private String memoryId;
 
     public User() {}
 
     public User(String userId, String name, String username, String password, String qrCode,
-                String fingerprint, String memoryId) {
+                String fingerprint) {
         this.userId = userId;
         this.name = name;
         this.username = username;
         this.password = password;
         this.qrCode = qrCode;
         this.fingerprint = fingerprint;
-        this.memoryId = memoryId;
     }
 
     public String getUserId() {
@@ -79,15 +77,6 @@ public class User {
     public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
     }
-
-    public String getMemoryId() {
-        return memoryId;
-    }
-
-    public void setMemoryId(String memoryId) {
-        this.memoryId = memoryId;
-    }
-
 
     //TODO: create methods to convert String to Bitmap and FingerprintManager?
 }

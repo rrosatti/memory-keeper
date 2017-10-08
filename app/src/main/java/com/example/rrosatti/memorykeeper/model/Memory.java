@@ -12,27 +12,21 @@ public class Memory {
     private String title;
     private String description;
     private String img; // Bitmap
+    private String userId;
 
     public Memory() {}
 
-    public Memory(String memoryId, String title, String description) {
+    public Memory(String memoryId, String title, String description, String userId) {
         this.memoryId = memoryId;
         this.title = title;
         this.description = description;
         this.img = null;
+        this.userId = userId;
     }
 
-    public Memory(String memoryId, String title, String description, String img) {
-        this(memoryId, title, description);
+    public Memory(String memoryId, String title, String description, String img, String userId) {
+        this(memoryId, title, description, userId);
         this.img = img;
-    }
-
-    public String getId() {
-        return memoryId;
-    }
-
-    public void setId(String id) {
-        this.memoryId = id;
     }
 
     public String getTitle() {
@@ -59,6 +53,21 @@ public class Memory {
         this.img = img;
     }
 
+    public String getMemoryId() {
+        return memoryId;
+    }
+
+    public void setMemoryId(String memoryId) {
+        this.memoryId = memoryId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     //TODO: create a method to convert from String to Bitmap
 }
