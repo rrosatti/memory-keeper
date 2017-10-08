@@ -16,10 +16,10 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/activityLoginEtUsername"
+                android:id="@+id/activityLoginEtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"/>
+                android:hint="@string/email"/>
 
             <EditText
                 android:id="@+id/activityLoginEtPassword"

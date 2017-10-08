@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.BarcodeFormat;
@@ -31,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText etName;
     private EditText etUsername;
+    private EditText etEmail;
     private EditText etPassword;
     private EditText etRepeatPassword;
     private Button btGenerateQRCode;
@@ -38,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btOk;
     private DatabaseReference mDatabase;
     private DatabaseReference userDatabase;
+    private FirebaseAuth auth;
     private int PERMISSION_SDCARD = 0;
     private String pathQrCode = "";
 
@@ -48,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         iniViews();
 
+        auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userDatabase = mDatabase.child("users");
 
@@ -108,18 +117,37 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (!checkUserInput()) return;
 
-                User user = new User();
+                final User user = new User();
                 user.setName(etName.getText().toString());
                 user.setUsername(etUsername.getText().toString());
+                user.setEmail(etEmail.getText().toString());
                 user.setPassword(etPassword.getText().toString());
                 user.setQrCode(pathQrCode);
                 user.setFingerprint("");
 
-                String key = userDatabase.push().getKey();
-                user.setUserId(key);
-                userDatabase.child(key).setValue(user);
 
-                finish();
+                auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(), "Authentication Failed: " +
+                                    task.getException(), Toast.LENGTH_SHORT).show();
+                                    System.out.println("Failed: " + task.getException());
+                                } else {
+                                    //String key = userDatabase.push().getKey();
+                                    FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    String key = fUser.getUid();
+                                    user.setUserId(key);
+                                    userDatabase.child(key).setValue(user);
+
+                                    finish();
+                                }
+
+                            }
+                        });
+
             }
         });
     }
@@ -127,6 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void iniViews() {
         etName = (EditText) findViewById(R.id.activitySignUpEtName);
         etUsername = (EditText) findViewById(R.id.activitySignUpEtUsername);
+        etEmail = (EditText) findViewById(R.id.activitySignUpEtEmail);
         etPassword = (EditText) findViewById(R.id.activitySignUpEtPassword);
         etRepeatPassword = (EditText) findViewById(R.id.activitySignUpEtRepeatPassword);
         btGenerateQRCode = (Button) findViewById(R.id.activitySignUpBtGenerateQrCode);
@@ -154,11 +183,13 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean checkUserInput() {
         String name = etName.getText().toString();
         String username = etUsername.getText().toString();
+        String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
         String repeatPassword = etRepeatPassword.getText().toString();
 
-        if (name.equals("") || username.equals("") || password.equals("") || repeatPassword.equals("")) {
-            Toast.makeText(getApplicationContext(), "You must feel all fields", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) || TextUtils.isEmpty(email) ||
+                TextUtils.isEmpty(password) || TextUtils.isEmpty(repeatPassword)) {
+            Toast.makeText(getApplicationContext(), "You must fill all fields", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!password.equals(repeatPassword)) {
             Toast.makeText(getApplicationContext(),

@@ -5,12 +5,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.example.rrosatti.memorykeeper.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MemoryListActivity extends AppCompatActivity {
 
     private FloatingActionButton btNewMemory;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference userReference;
+    private FirebaseDatabase memoriesDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +28,25 @@ public class MemoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_memory_list);
 
         iniViews();
+
+        String userId = getIntent().getStringExtra("userId");
+
+        mDatabase = FirebaseDatabase.getInstance();
+        userReference = mDatabase.getReference().child("users").child(userId);
+
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                Toast.makeText(getApplicationContext(), "Welcome " + user.getName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        userReference.addValueEventListener(userListener);
 
         btNewMemory.setOnClickListener(new View.OnClickListener() {
             @Override
