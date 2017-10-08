@@ -1,8 +1,14 @@
 package com.example.rrosatti.memorykeeper.activity;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -28,6 +36,10 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btGenerateQRCode;
     private Button btCancel;
     private Button btOk;
+    private DatabaseReference mDatabase;
+    private DatabaseReference userDatabase;
+    private int PERMISSION_SDCARD = 0;
+    private String pathQrCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +47,9 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         iniViews();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        userDatabase = mDatabase.child("users");
 
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +62,11 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!checkUserInput()) {
-                    return;
-                }
+                if (!checkUserInput()) return;
+
+                // check if app is running on Android Marshmallow
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) return;
 
                 /**
                  * Code based on the following StackOverflow links:
@@ -101,6 +118,8 @@ public class SignUpActivity extends AppCompatActivity {
         // save imageView in gallery
         String cameraPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
         File cachePath = new File(cameraPath + "/memory-keeper-qr-code.jpg");
+        pathQrCode = cameraPath.toString();
+        System.out.println("Path: " + pathQrCode);
         try {
             cachePath.createNewFile();
             FileOutputStream outputStream = new FileOutputStream(cachePath);
@@ -126,5 +145,28 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private boolean checkPermission(String permission) {
+        // check if device has the permission
+        if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            // sent permission request
+            ActivityCompat.requestPermissions(this, new String[]{permission}, PERMISSION_SDCARD);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // check permission code
+        if (requestCode == PERMISSION_SDCARD) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(), "Permission Granted!!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Permission Denied!!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -26,8 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton btLoginWithFingerprint;
     private ImageButton btLoginWithQRCode;
     private DatabaseReference mDatabase;
-    private DatabaseReference userCloudEndPoint;
-    private DatabaseReference memoryCloudEndPoint;
+    private DatabaseReference userDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         iniViews();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        userCloudEndPoint = mDatabase.child("users");
-        memoryCloudEndPoint = mDatabase.child("memories");
+        userDatabase = mDatabase.child("users");
 
         btSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userCloudEndPoint.setValue("Hello World").addOnFailureListener(new OnFailureListener() {
+                userDatabase.setValue("Hello World").addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d("Failure", e.getLocalizedMessage());
