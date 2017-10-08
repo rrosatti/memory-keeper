@@ -32,7 +32,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private EditText etRepeatPassword;
-    private Button btRegisterFingerprint;
     private Button btGenerateQRCode;
     private Button btCancel;
     private Button btOk;
@@ -108,7 +107,6 @@ public class SignUpActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.activitySignUpEtUsername);
         etPassword = (EditText) findViewById(R.id.activitySignUpEtPassword);
         etRepeatPassword = (EditText) findViewById(R.id.activitySignUpEtRepeatPassword);
-        btRegisterFingerprint = (Button) findViewById(R.id.activitySignUpBtRegisterFingerprint);
         btGenerateQRCode = (Button) findViewById(R.id.activitySignUpBtGenerateQrCode);
         btCancel = (Button) findViewById(R.id.activitySignUpBtCancel);
         btOk = (Button) findViewById(R.id.activitySignUpBtOk);

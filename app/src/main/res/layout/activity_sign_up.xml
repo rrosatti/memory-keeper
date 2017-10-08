@@ -39,19 +39,13 @@
             android:inputType="textPassword"
             android:layout_marginTop="10dp"/>
         
-        <Button
-            android:id="@+id/activitySignUpBtRegisterFingerprint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/register_fingerprint"
-            android:layout_marginTop="40dp"/>
 
         <Button
             android:id="@+id/activitySignUpBtGenerateQrCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/generate_qr_code"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 
