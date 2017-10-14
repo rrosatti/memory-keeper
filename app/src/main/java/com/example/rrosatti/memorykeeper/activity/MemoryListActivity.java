@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MemoryListActivity extends AppCompatActivity {
 
     private FloatingActionButton btNewMemory;
+    private RecyclerView listOfMemories;
     private FirebaseDatabase mDatabase;
     private DatabaseReference userReference;
     private FirebaseDatabase memoriesDatabase;
@@ -29,7 +31,7 @@ public class MemoryListActivity extends AppCompatActivity {
 
         iniViews();
 
-        String userId = getIntent().getStringExtra("userId");
+        final String userId = getIntent().getStringExtra("userId");
 
         mDatabase = FirebaseDatabase.getInstance();
         userReference = mDatabase.getReference().child("users").child(userId);
@@ -52,6 +54,7 @@ public class MemoryListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent inNewMemory = new Intent(MemoryListActivity.this, NewMemoryActivity.class);
+                inNewMemory.putExtra("userId", userId);
                 startActivity(inNewMemory);
             }
         });
@@ -59,5 +62,6 @@ public class MemoryListActivity extends AppCompatActivity {
 
     private void iniViews() {
         btNewMemory = (FloatingActionButton) findViewById(R.id.btNewMemory);
+        listOfMemories = (RecyclerView) findViewById(R.id.listMemories);
     }
 }

@@ -125,7 +125,6 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setQrCode(pathQrCode);
                 user.setFingerprint("");
 
-
                 auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
