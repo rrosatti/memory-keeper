@@ -44,7 +44,10 @@
         <activity
             android:name=".activity.FingerprintLoginActivity"
             android:label="@string/label_fingerprint_login"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.DetailedMemoryActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

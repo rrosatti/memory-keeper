@@ -1,12 +1,15 @@
 package com.example.rrosatti.memorykeeper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.example.rrosatti.memorykeeper.activity.DetailedMemoryActivity;
 import com.example.rrosatti.memorykeeper.model.Memory;
 
 /**
@@ -17,6 +20,7 @@ public class FirebaseMemoryViewHolder extends RecyclerView.ViewHolder implements
 
     private View view;
     private Context context;
+    private Memory memory;
 
     public FirebaseMemoryViewHolder(View view) {
         super(view);
@@ -26,6 +30,7 @@ public class FirebaseMemoryViewHolder extends RecyclerView.ViewHolder implements
     }
 
     public void bindMemory(Memory memory) {
+        this.memory = memory;
         ImageView imgMemory = view.findViewById(R.id.imgMemory);
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         TextView txtDescription = view.findViewById(R.id.txtDescription);
@@ -37,6 +42,8 @@ public class FirebaseMemoryViewHolder extends RecyclerView.ViewHolder implements
 
     @Override
     public void onClick(View view) {
-
+        Intent inDetailedMemory = new Intent(context.getApplicationContext(), DetailedMemoryActivity.class);
+        inDetailedMemory.putExtra("memoryId", memory.getMemoryId());
+        context.startActivity(inDetailedMemory);
     }
 }

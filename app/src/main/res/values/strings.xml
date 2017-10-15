@@ -24,6 +24,7 @@
     <string name="ok">Ok</string>
     <string name="add_image">Add Image</string>
     <string name="read_qrcode">Read QRCode</string>
+    <string name="update">Update</string>
 
     <!-- Label -->
     <string name="label_sign_up">Sign Up</string>
