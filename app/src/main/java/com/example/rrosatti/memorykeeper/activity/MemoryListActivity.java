@@ -1,19 +1,19 @@
 package com.example.rrosatti.memorykeeper.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
-import com.example.rrosatti.memorykeeper.adapter.MemoryAdapter;
+import com.example.rrosatti.memorykeeper.adapter.FirebaseMemoryViewHolder;
 import com.example.rrosatti.memorykeeper.model.Memory;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,8 +32,8 @@ public class MemoryListActivity extends AppCompatActivity {
     private DatabaseReference userReference;
     private DatabaseReference memoriesDatabase;
     private String userId;
-    private MemoryAdapter memoryAdapter;
     private List<Memory> memories;
+    private FirebaseRecyclerAdapter firebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,19 @@ public class MemoryListActivity extends AppCompatActivity {
         memories = new ArrayList<>();
 
         Query getMemories = database.child("memories").orderByChild("userId").equalTo(userId);
+        firebaseAdapter = new FirebaseRecyclerAdapter<Memory, FirebaseMemoryViewHolder>
+                (Memory.class, R.layout.memory_item, FirebaseMemoryViewHolder.class, getMemories) {
+
+            @Override
+            protected void populateViewHolder(FirebaseMemoryViewHolder viewHolder, Memory model, int position) {
+                viewHolder.bindMemory(model);
+            }
+        };
+
+        listOfMemories.setHasFixedSize(true);
+        listOfMemories.setLayoutManager(new GridLayoutManager(this, 1));
+        listOfMemories.setAdapter(firebaseAdapter);
+
         getMemories.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -57,7 +70,7 @@ public class MemoryListActivity extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Memory memory = ds.getValue(Memory.class);
                         memories.add(memory);
-                        memoryAdapter.add(memory);
+                        Log.d("Interesting", memory.getDescription());
                     }
                 }
             }
@@ -68,23 +81,12 @@ public class MemoryListActivity extends AppCompatActivity {
             }
         });
 
-        memoryAdapter = new MemoryAdapter(this, new ArrayList<Memory>(0), new MemoryAdapter.MemoryListener() {
-            @Override
-            public void onMemoryClick(String memoryId) {
-                Toast.makeText(getApplicationContext(), "MemoryID: " + memoryId, Toast.LENGTH_SHORT).show();
-            }
-        });
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 1);
-        listOfMemories.setLayoutManager(layoutManager);
-        listOfMemories.setItemAnimator(new DefaultItemAnimator());
-        listOfMemories.setAdapter(memoryAdapter);
-
         btNewMemory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent inNewMemory = new Intent(MemoryListActivity.this, NewMemoryActivity.class);
                 inNewMemory.putExtra("userId", userId);
-                startActivity(inNewMemory);
+                startActivityForResult(inNewMemory, 1);
             }
         });
     }
@@ -92,5 +94,20 @@ public class MemoryListActivity extends AppCompatActivity {
     private void iniViews() {
         btNewMemory = (FloatingActionButton) findViewById(R.id.btNewMemory);
         listOfMemories = (RecyclerView) findViewById(R.id.listMemories);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            switch (resultCode) {
+                case Activity.RESULT_OK: {
+                    Memory newMemory = (Memory) data.getExtras().getSerializable("newMemory");
+                    memories.add(newMemory);
+                    listOfMemories.scrollToPosition(listOfMemories.getAdapter().getItemCount() - 1);
+                    break;
+                }
+            }
+        }
     }
 }

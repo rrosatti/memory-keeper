@@ -2,11 +2,13 @@ package com.example.rrosatti.memorykeeper.model;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by rrosatti on 9/10/17.
  */
 
-public class Memory {
+public class Memory implements Serializable {
 
     private String memoryId;
     private String title;

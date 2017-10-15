@@ -36,7 +36,7 @@
         <activity
             android:name=".activity.NewMemoryActivity"
             android:label="@string/label_new_memory"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.QRCodeLoginActivity"
             android:label="@string/label_qrcode_login"

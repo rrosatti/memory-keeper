@@ -1,8 +1,12 @@
 package com.example.rrosatti.memorykeeper.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +16,8 @@ import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.model.Memory;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Serializable;
 
 public class NewMemoryActivity extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class NewMemoryActivity extends AppCompatActivity {
     private DatabaseReference database;
     private DatabaseReference memoriesDatabase;
     private String userId;
+    private Memory memory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class NewMemoryActivity extends AppCompatActivity {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(Activity.RESULT_CANCELED);
                 finish();
             }
         });
@@ -54,7 +62,7 @@ public class NewMemoryActivity extends AppCompatActivity {
                 if (!checkFields())
                     return;
 
-                Memory memory = new Memory();
+                memory = new Memory();
                 memory.setTitle(etTitle.getText().toString());
                 memory.setDescription(etLongDescription.getText().toString());
                 memory.setImg("/not/working/yet");
@@ -65,9 +73,13 @@ public class NewMemoryActivity extends AppCompatActivity {
 
                 memoriesDatabase.child(memoryId).setValue(memory);
 
+                // pass the new memory back to the previous activity;
                 finish();
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private void iniViews() {
@@ -78,12 +90,27 @@ public class NewMemoryActivity extends AppCompatActivity {
         btOk = (Button) findViewById(R.id.activityNewMemoryBtOk);
     }
 
+    @Override
+    public void finish() {
+        Intent returnNewMemory = new Intent();
+        returnNewMemory.putExtra("newMemory", memory);
+        setResult(Activity.RESULT_OK, returnNewMemory);
+        super.finish();
+    }
+
     private boolean checkFields() {
         if (TextUtils.isEmpty(etTitle.getText().toString())
                 || TextUtils.isEmpty(etLongDescription.getText().toString())) {
             Toast.makeText(getApplicationContext(), "You must fill all fields!", Toast.LENGTH_SHORT).show();
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        setResult(Activity.RESULT_CANCELED);
+        onBackPressed();
         return true;
     }
 }
