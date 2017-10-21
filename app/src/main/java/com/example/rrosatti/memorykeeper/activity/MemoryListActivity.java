@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.adapter.FirebaseMemoryViewHolder;
@@ -34,6 +35,7 @@ public class MemoryListActivity extends AppCompatActivity {
     private String userId;
     private List<Memory> memories;
     private FirebaseRecyclerAdapter firebaseAdapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class MemoryListActivity extends AppCompatActivity {
 
         iniViews();
 
+        progressBar.setVisibility(View.VISIBLE);
         userId = getIntent().getStringExtra("userId");
 
         database = FirebaseDatabase.getInstance().getReference();
@@ -67,6 +70,7 @@ public class MemoryListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    progressBar.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Memory memory = ds.getValue(Memory.class);
                         memories.add(memory);
@@ -94,6 +98,7 @@ public class MemoryListActivity extends AppCompatActivity {
     private void iniViews() {
         btNewMemory = (FloatingActionButton) findViewById(R.id.btNewMemory);
         listOfMemories = (RecyclerView) findViewById(R.id.listMemories);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarMemoryList);
     }
 
     @Override

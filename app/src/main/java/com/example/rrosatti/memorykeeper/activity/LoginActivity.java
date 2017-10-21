@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btLogin;
     private Button btSignUp;
+    private ProgressBar progressBar;
     private TextView txtForgotPassword;
     private ImageButton btLoginWithFingerprint;
     private ImageButton btLoginWithQRCode;
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (!checkInput()) {
                     return;
                 }
+                progressBar.setVisibility(View.VISIBLE);
                 auth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -71,7 +74,9 @@ public class LoginActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Auth failed: " +
                                             task.getException(), Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
                                 } else {
+                                    progressBar.setVisibility(View.GONE);
                                     Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
                                     inMemoryList.putExtra("userId", auth.getCurrentUser().getUid());
                                     startActivity(inMemoryList);
@@ -108,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         txtForgotPassword = (TextView) findViewById(R.id.txtForgotPass);
         btLoginWithFingerprint = (ImageButton) findViewById(R.id.btLoginWithFingerprint);
         btLoginWithQRCode = (ImageButton) findViewById(R.id.btLoginWithQrCode);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
     }
 
     private boolean checkInput() {
