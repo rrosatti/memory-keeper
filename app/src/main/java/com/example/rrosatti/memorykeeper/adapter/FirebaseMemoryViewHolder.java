@@ -34,10 +34,12 @@ public class FirebaseMemoryViewHolder extends RecyclerView.ViewHolder implements
         ImageView imgMemory = view.findViewById(R.id.imgMemory);
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         TextView txtDescription = view.findViewById(R.id.txtDescription);
+        TextView txtDate = view.findViewById(R.id.txtDate);
 
         // imgMemory() not working yet
         txtTitle.setText(memory.getTitle());
         txtDescription.setText(memory.getDescription());
+        txtDate.setText(memory.getDate());
     }
 
     @Override

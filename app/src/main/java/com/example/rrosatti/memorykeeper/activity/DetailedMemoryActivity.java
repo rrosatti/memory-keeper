@@ -26,6 +26,7 @@ public class DetailedMemoryActivity extends AppCompatActivity {
     private EditText etDescription;
     private Button btUpdate;
     private ProgressBar progressBar;
+    private EditText etDate;
     private String memoryId;
     private DatabaseReference database;
     private DatabaseReference memoriesDatabase;
@@ -53,6 +54,7 @@ public class DetailedMemoryActivity extends AppCompatActivity {
                 memory = dataSnapshot.getValue(Memory.class);
                 etTitle.setText(memory.getTitle());
                 etDescription.setText(memory.getDescription());
+                etDate.setText(memory.getDate());
             }
 
             @Override
@@ -72,6 +74,7 @@ public class DetailedMemoryActivity extends AppCompatActivity {
         etDescription = (EditText) findViewById(R.id.activityDetailedMemoryEtDescription);
         btUpdate = (Button) findViewById(R.id.activityDetailedMemoryBtUpdate);
         progressBar = (ProgressBar) findViewById(R.id.progressBarDetailedMemory);
+        etDate = (EditText) findViewById(R.id.activityDetailedMemoryEtDate);
     }
 
     @Override

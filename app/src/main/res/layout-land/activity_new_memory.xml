@@ -34,6 +34,33 @@
                     android:lines="5"
                     android:gravity="bottom|start"/>
 
+                <LinearLayout
+                    android:id="@+id/containerCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/txtShowDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"/>
+
+                    <ImageButton
+                        android:id="@+id/btCalendar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_icon"
+                        android:background="@null"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/activityNewMemoryBtAddImage"
                     android:layout_width="match_parent"
