@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class DetailedMemoryActivity extends AppCompatActivity {
 
@@ -55,6 +56,9 @@ public class DetailedMemoryActivity extends AppCompatActivity {
                 etTitle.setText(memory.getTitle());
                 etDescription.setText(memory.getDescription());
                 etDate.setText(memory.getDate());
+                if (!memory.getImg().isEmpty())
+                    Picasso.with(getApplicationContext()).load(memory.getImg()).into(imgMemory);
+
             }
 
             @Override
