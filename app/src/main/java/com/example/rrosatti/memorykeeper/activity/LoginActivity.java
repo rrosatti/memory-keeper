@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
+                Util.disableUserInteraction(LoginActivity.this);
                 auth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -80,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
                                     inMemoryList.putExtra("userId", auth.getCurrentUser().getUid());
                                     startActivity(inMemoryList);
+                                    Util.enableUserInteraction(LoginActivity.this);
                                     finish();
                                 }
                             }

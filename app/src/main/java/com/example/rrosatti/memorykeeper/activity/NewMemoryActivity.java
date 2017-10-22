@@ -114,6 +114,7 @@ public class NewMemoryActivity extends AppCompatActivity {
                     return;
 
                 progressBar.setVisibility(View.VISIBLE);
+                Util.disableUserInteraction(NewMemoryActivity.this);
                 if (imageSelected)
                     saveImageFirebase();
                 else
@@ -192,6 +193,7 @@ public class NewMemoryActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressBar.setVisibility(View.GONE);
+                Util.enableUserInteraction(NewMemoryActivity.this);
                 Toast.makeText(getApplicationContext(), "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -218,6 +220,7 @@ public class NewMemoryActivity extends AppCompatActivity {
         memoriesDatabase.child(memoryId).setValue(memory);
 
         progressBar.setVisibility(View.GONE);
+        Util.enableUserInteraction(NewMemoryActivity.this);
         finish();
     }
 

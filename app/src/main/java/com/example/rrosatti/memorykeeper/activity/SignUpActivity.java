@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.model.User;
+import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -125,6 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setQrCode(pathQrCode);
                 user.setFingerprint("");
 
+                Util.disableUserInteraction(SignUpActivity.this);
                 auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -134,6 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Authentication Failed: " +
                                     task.getException(), Toast.LENGTH_SHORT).show();
                                     System.out.println("Failed: " + task.getException());
+                                    Util.enableUserInteraction(SignUpActivity.this);
                                 } else {
                                     //String key = userDatabase.push().getKey();
                                     FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -141,6 +144,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     user.setUserId(key);
                                     userDatabase.child(key).setValue(user);
 
+                                    Util.enableUserInteraction(SignUpActivity.this);
                                     finish();
                                 }
 
