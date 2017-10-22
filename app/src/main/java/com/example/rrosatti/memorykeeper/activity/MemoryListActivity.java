@@ -87,6 +87,10 @@ public class MemoryListActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            listOfMemories.scrollToPosition(savedInstanceState.getInt("lastPosition"));
+        }
+
         btNewMemory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,5 +120,11 @@ public class MemoryListActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //outState.putInt("lastPosition", listOfMemories.getVerticalScrollbarPosition());
     }
 }

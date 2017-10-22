@@ -70,11 +70,22 @@ public class NewMemoryActivity extends AppCompatActivity {
             finish();
         }
 
+        if (savedInstanceState != null) {
+            Toast.makeText(getApplicationContext(), "WHAT??", Toast.LENGTH_SHORT).show();
+            sDate = savedInstanceState.getString("date");
+            selectedImagePath = savedInstanceState.getString("selectedImagePath");
+            downloadFirebaseImageUrl = savedInstanceState.getString("downloadFirebaseImageUrl");
+            imageSelected = savedInstanceState.getBoolean("imageSelected");
+            txtDate.setText(sDate);
+            txtImageName.setText(selectedImagePath);
+            txtImageName.setVisibility(View.VISIBLE);
+        } else {
+            sDate = Util.getCurrentDate();
+            txtDate.setText(sDate);
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        sDate = Util.getCurrentDate();
-        txtDate.setText(sDate);
 
         database = FirebaseDatabase.getInstance().getReference();
         memoriesDatabase = database.child("memories");
@@ -237,4 +248,15 @@ public class NewMemoryActivity extends AppCompatActivity {
         int columnIndex = cursor.getColumnIndex(projection[0]);
         return cursor.getString(columnIndex);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("date", sDate);
+        outState.putString("selectedImagePath", selectedImagePath);
+        outState.putString("downloadFirebaseImageUrl", downloadFirebaseImageUrl);
+        outState.putBoolean("imageSelected", imageSelected);
+    }
+
+
 }

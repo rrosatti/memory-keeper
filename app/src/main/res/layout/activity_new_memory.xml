@@ -4,101 +4,115 @@
     android:layout_height="match_parent"
     android:padding="40dp">
 
-    <LinearLayout
-        android:id="@+id/activityNewMemoryContainerTop"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:scrollbars="none">
 
-        <EditText
-            android:id="@+id/activityNewMemoryEtTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/title"/>
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/activityNewMemoryEtDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/long_description"
-            android:layout_marginTop="10dp"
-            android:lines="5"
-            android:gravity="bottom|start"/>
+            <LinearLayout
+                android:id="@+id/activityNewMemoryContainerTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/containerCalendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/activityNewMemoryEtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title"/>
 
-            <TextView
-                android:id="@+id/txtShowDate"
+                <EditText
+                    android:id="@+id/activityNewMemoryEtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/long_description"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:gravity="bottom|start"/>
+
+                <LinearLayout
+                    android:id="@+id/containerCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/txtShowDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_horizontal"
+                        android:textSize="18sp"/>
+
+                    <ImageButton
+                        android:id="@+id/btCalendar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_icon"
+                        android:background="@null"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/activityNewMemoryBtAddImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_image"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/txtImageName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:visibility="gone"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activityNewMemoryContainerBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_below="@id/activityNewMemoryContainerTop">
+
+                <Button
+                    android:id="@+id/activityNewMemoryBtCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/activityNewMemoryBtOk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ok"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBarNewMemory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_horizontal"
-                android:textSize="18sp"/>
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
 
-            <ImageButton
-                android:id="@+id/btCalendar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar_icon"
-                android:background="@null"
-                android:layout_margin="5dp"
-                android:layout_weight="2"/>
+        </RelativeLayout>
 
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/activityNewMemoryBtAddImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_image"
-            android:layout_marginTop="20dp"/>
-
-        <TextView
-            android:id="@+id/txtImageName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:visibility="gone"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/activityNewMemoryContainerBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_below="@id/activityNewMemoryContainerTop">
-
-        <Button
-            android:id="@+id/activityNewMemoryBtCancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/activityNewMemoryBtOk"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/ok"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBarNewMemory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+    </ScrollView>
 
 </RelativeLayout>

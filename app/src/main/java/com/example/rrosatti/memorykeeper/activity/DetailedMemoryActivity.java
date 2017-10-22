@@ -57,32 +57,20 @@ public class DetailedMemoryActivity extends AppCompatActivity {
             finish();
         }
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        progressBar.setVisibility(View.VISIBLE);
         database = FirebaseDatabase.getInstance().getReference();
         memoriesDatabase = database.child("memories");
 
-        memoriesDatabase.child(memoryId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.GONE);
-                memory = dataSnapshot.getValue(Memory.class);
-                etTitle.setText(memory.getTitle());
-                etDescription.setText(memory.getDescription());
-                txtDate.setText(memory.getDate());
-                if (!memory.getImg().isEmpty())
-                    Picasso.with(getApplicationContext()).load(memory.getImg()).into(imgMemory);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("Warning", "Firebase on DetailedMemoryActivity was just cancelled.");
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+        if (savedInstanceState != null) {
+            sDate = savedInstanceState.getString("date");
+            txtDate.setText(sDate);
+            etTitle.setText(savedInstanceState.getString("title"));
+            etDescription.setText(savedInstanceState.getString("description"));
+        } else {
+            getMemoryFromFirebase();
+        }
 
         btUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +116,29 @@ public class DetailedMemoryActivity extends AppCompatActivity {
         return true;
     }
 
+    public void getMemoryFromFirebase() {
+        progressBar.setVisibility(View.VISIBLE);
+        memoriesDatabase.child(memoryId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
+                memory = dataSnapshot.getValue(Memory.class);
+                etTitle.setText(memory.getTitle());
+                etDescription.setText(memory.getDescription());
+                txtDate.setText(memory.getDate());
+                if (!memory.getImg().isEmpty())
+                    Picasso.with(getApplicationContext()).load(memory.getImg()).into(imgMemory);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Warning", "Firebase on DetailedMemoryActivity was just cancelled.");
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
     public void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(DetailedMemoryActivity.this);
 
@@ -164,5 +175,13 @@ public class DetailedMemoryActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("title", etTitle.getText().toString());
+        outState.putString("description", etDescription.getText().toString());
+        outState.putString("date", sDate);
     }
 }

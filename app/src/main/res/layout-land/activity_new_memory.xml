@@ -31,7 +31,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/long_description"
                     android:layout_marginTop="10dp"
-                    android:lines="5"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
                     android:gravity="bottom|start"/>
 
                 <LinearLayout
