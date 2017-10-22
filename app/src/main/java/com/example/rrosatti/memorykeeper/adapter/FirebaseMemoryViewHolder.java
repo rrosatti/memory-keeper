@@ -43,7 +43,6 @@ public class FirebaseMemoryViewHolder extends RecyclerView.ViewHolder implements
         txtDescription.setText(memory.getDescription());
         txtDate.setText(memory.getDate());
         if (!memory.getImg().isEmpty()) {
-            Log.e("Error", "Not ERROR HERE: " + memory.getImg());
             Picasso.with(context).load(memory.getImg()).into(imgMemory);
         }
         else {

@@ -5,6 +5,10 @@
     <!-- TextView -->
     <string name="forgot_pass"><u>Forgot password?</u></string>
     <string name="fingerprint_login_description">One-touch Sign In</string>
+    <string name="no_fingerprint_sensor">Your device does not have a Fingerprint Sensor</string>
+    <string name="fingerprint_permission_no_enabled">Fingerprint authentication permission not enabled</string>
+    <string name="register_at_least_one_fingerprint">Register at least one fingerprint in Settings</string>
+    <string name="lock_screen_security_not_enable">Lock screen security not enabled in Settings</string>
 
     <!-- EditText -->
     <string name="name">name</string>
@@ -32,6 +36,7 @@
     <string name="label_new_memory">New Memory</string>
     <string name="label_qrcode_login">QRCode Login</string>
     <string name="label_fingerprint_login">Fingerprint Login</string>
+    <string name="label_detailed_memory">Detailed Memory</string>
 
     <!-- Temp Array -->
     <array name="temp_list">
@@ -47,5 +52,15 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!-- Toast -->
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="fill_all_fields">You must fill all fields!</string>
+    <string name="auth_failed">Authentication Failed: </string>
+    <string name="qrcode_generated">QR Code generated and saved in: </string>
+    <string name="password_does_not_match">The value of RepeatPassword does not match the Password!</string>
+    <string name="permission_granted">Permission Granted!!</string>
+    <string name="permission_denied">Permission Denied!!</string>
+    <string name="fields_should_not_be_empty">The fields should not be empty!</string>
 
 </resources>

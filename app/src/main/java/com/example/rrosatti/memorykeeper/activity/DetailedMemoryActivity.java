@@ -53,7 +53,7 @@ public class DetailedMemoryActivity extends AppCompatActivity {
         iniViews();
         memoryId = getIntent().getStringExtra("memoryId");
         if (memoryId == null) {
-            Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -159,7 +159,8 @@ public class DetailedMemoryActivity extends AppCompatActivity {
 
     private boolean checkFields() {
         if (Util.isViewEmpty(etTitle) || Util.isViewEmpty(txtDate) || Util.isViewEmpty(etDescription)) {
-            Toast.makeText(getApplicationContext(), "The fields should not be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.fields_should_not_be_empty),
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

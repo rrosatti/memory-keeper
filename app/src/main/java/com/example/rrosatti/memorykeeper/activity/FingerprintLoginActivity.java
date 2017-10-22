@@ -7,7 +7,6 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rrosatti.memorykeeper.FingerprintHandler;
-import com.example.rrosatti.memorykeeper.Manifest;
 import com.example.rrosatti.memorykeeper.R;
 
 import java.io.IOException;
@@ -26,7 +24,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 
 import javax.crypto.Cipher;
@@ -64,20 +61,20 @@ public class FingerprintLoginActivity extends AppCompatActivity {
         /** Check if the device has a Fingerprint sensor */
         if (!fingerprintManager.isHardwareDetected()) {
             // thrown an error message
-            txtTemp.setText("Your device does not have a Fingerprint Sensor");
+            txtTemp.setText(getString(R.string.no_fingerprint_sensor));
         } else {
             // Check if fingerprint permission is set on Manifest
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.USE_FINGERPRINT)
                     != PackageManager.PERMISSION_GRANTED) {
-                txtTemp.setText("Fingerprint authentication permission not enabled");
+                txtTemp.setText(getString(R.string.fingerprint_permission_no_enabled));
             } else {
                 // check if there is at least one fingerprint registered
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
-                    txtTemp.setText("Register at least one fingerprint in Settings");
+                    txtTemp.setText(getString(R.string.register_at_least_one_fingerprint));
                 } else {
                     // check if lock screen is enable or not
                     if (!keyguardManager.isKeyguardSecure()) {
-                        txtTemp.setText("Lock screen security not enabled in Settings");
+                        txtTemp.setText(getString(R.string.lock_screen_security_not_enable));
                     } else {
                         generateKey();
 

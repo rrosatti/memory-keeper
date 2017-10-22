@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Auth failed: " +
+                                    Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
                                             task.getException(), Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                 } else {
@@ -124,7 +124,8 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPassword.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "You must fill all fields!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.fill_all_fields),
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
 

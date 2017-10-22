@@ -133,7 +133,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Authentication Failed: " +
+                                    Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
                                     task.getException(), Toast.LENGTH_SHORT).show();
                                     System.out.println("Failed: " + task.getException());
                                     Util.enableUserInteraction(SignUpActivity.this);
@@ -176,7 +176,7 @@ public class SignUpActivity extends AppCompatActivity {
             FileOutputStream outputStream = new FileOutputStream(cachePath);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.close();
-            Toast.makeText(getApplicationContext(), "QR Code generated and saved in: " + pathQrCode,
+            Toast.makeText(getApplicationContext(), getString(R.string.qrcode_generated) + pathQrCode,
                     Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,11 +192,11 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) || TextUtils.isEmpty(email) ||
                 TextUtils.isEmpty(password) || TextUtils.isEmpty(repeatPassword)) {
-            Toast.makeText(getApplicationContext(), "You must fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             return false;
         } else if (!password.equals(repeatPassword)) {
             Toast.makeText(getApplicationContext(),
-                    "The value of RepeatPassword does not match the Password", Toast.LENGTH_SHORT).show();
+                    getString(R.string.password_does_not_match), Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -218,9 +218,11 @@ public class SignUpActivity extends AppCompatActivity {
         // check permission code
         if (requestCode == PERMISSION_SDCARD) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getApplicationContext(), "Permission Granted!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.permission_granted),
+                        Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Permission Denied!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.permission_denied),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

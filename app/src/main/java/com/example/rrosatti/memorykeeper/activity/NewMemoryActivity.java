@@ -66,7 +66,7 @@ public class NewMemoryActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra("userId");
 
         if (userId == null) {
-            Toast.makeText(this, "Something went really wrong!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -156,7 +156,7 @@ public class NewMemoryActivity extends AppCompatActivity {
     private boolean checkFields() {
         if (TextUtils.isEmpty(etTitle.getText().toString())
                 || TextUtils.isEmpty(etLongDescription.getText().toString())) {
-            Toast.makeText(getApplicationContext(), "You must fill all fields!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

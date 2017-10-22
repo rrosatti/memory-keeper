@@ -47,6 +47,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.DetailedMemoryActivity"
+            android:label="@string/label_detailed_memory"
             android:theme="@style/AppTheme"/>
     </application>
 

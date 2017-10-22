@@ -55,7 +55,7 @@ public class QRCodeLoginActivity extends AppCompatActivity implements ZXingScann
         if (true) {
             finish();
         } else {
-            Toast.makeText(getApplicationContext(), "Something went really wrong here!",
+            Toast.makeText(getApplicationContext(), getString(R.string.something_went_wrong),
                     Toast.LENGTH_SHORT).show();
         }
 
