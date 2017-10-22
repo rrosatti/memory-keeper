@@ -3,6 +3,8 @@ package com.example.rrosatti.memorykeeper.model;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by rrosatti on 9/10/17.
@@ -77,5 +79,14 @@ public class Memory implements Serializable {
 
     public void setDate(String date) { this.date = date; }
 
-    //TODO: create a method to convert from String to Bitmap
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("memoryId", memoryId);
+        result.put("title", title);
+        result.put("description", description);
+        result.put("img", img);
+        result.put("userId", userId);
+        result.put("date", date);
+        return result;
+    }
 }

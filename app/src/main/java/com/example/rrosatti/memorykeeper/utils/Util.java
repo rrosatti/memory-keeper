@@ -2,7 +2,9 @@ package com.example.rrosatti.memorykeeper.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,5 +39,9 @@ public class Util {
 
     public static void enableUserInteraction(Activity activity) {
         activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public static boolean isViewEmpty(TextView textView) {
+        return TextUtils.isEmpty(textView.getText().toString());
     }
 }

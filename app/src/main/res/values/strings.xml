@@ -42,4 +42,10 @@
         <item>Memory 5</item>
     </array>
 
+    <!-- Dialog -->
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>
