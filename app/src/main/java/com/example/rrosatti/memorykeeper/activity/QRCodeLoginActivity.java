@@ -17,7 +17,7 @@ public class QRCodeLoginActivity extends AppCompatActivity implements ZXingScann
 
     private TextView txtQRCodeResult;
     private Button btReadQRCode;
-    private ZXingScannerView mScannerView;
+    private ZXingScannerView mScannerView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,22 +48,23 @@ public class QRCodeLoginActivity extends AppCompatActivity implements ZXingScann
         Log.e("handler", rawResult.getBarcodeFormat().toString());
         txtQRCodeResult.setText("Raw Result: " + rawResult.getText() +
                             "\nBarcode Format: " + rawResult.getBarcodeFormat().toString());
-        //mScannerView.resumeCameraPreview(QRCodeLoginActivity.this);
-        mScannerView.stopCamera();
+        mScannerView.resumeCameraPreview(QRCodeLoginActivity.this);
+        //mScannerView.stopCamera();
 
         // TODO:check if the given qr code is a "memory keeper qr code"
-        if (true) {
+        /*if (true) {
             finish();
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.something_went_wrong),
                     Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mScannerView.stopCamera();
+        if(mScannerView!=null)
+            mScannerView.stopCamera();
     }
 }

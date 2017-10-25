@@ -34,6 +34,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.4.1'
     compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile fileTree(dir: 'libs', include:  '*.jar'), 'commons-net:commons-net:3.3'
     testCompile 'junit:junit:4.12'
 }
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.adapter.FirebaseMemoryViewHolder;
@@ -78,6 +79,9 @@ public class MemoryListActivity extends AppCompatActivity {
                         memories.add(memory);
                         Log.d("Interesting", memory.getDescription());
                     }
+                } else{
+                    Toast.makeText(getApplicationContext(),"Deu ruim",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 

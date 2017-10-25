@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.model.User;
+import com.example.rrosatti.memorykeeper.utils.EncryptPassword;
 import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +34,9 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -118,16 +122,20 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (!checkUserInput()) return;
 
+                try {
+                    EncryptPassword encryptPassword = new EncryptPassword();
+                    String encryptedPass = encryptPassword.getEncryptedPass(etPassword.getText().toString());
+
                 final User user = new User();
                 user.setName(etName.getText().toString());
                 user.setUsername(etUsername.getText().toString());
                 user.setEmail(etEmail.getText().toString());
-                user.setPassword(etPassword.getText().toString());
+                user.setPassword(encryptedPass);
                 user.setQrCode(pathQrCode);
                 user.setFingerprint("");
 
                 Util.disableUserInteraction(SignUpActivity.this);
-                auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+                auth.createUserWithEmailAndPassword(etEmail.getText().toString(), encryptedPass)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -150,6 +158,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                             }
                         });
+                }catch (Exception ex){
+                    ex.getMessage();
+                }
+
 
             }
         });

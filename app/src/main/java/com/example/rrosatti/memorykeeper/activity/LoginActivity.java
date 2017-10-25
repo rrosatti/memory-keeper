@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.example.rrosatti.memorykeeper.utils.EncryptPassword;
 import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,6 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -69,7 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 Util.disableUserInteraction(LoginActivity.this);
-                auth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+                try{
+                    EncryptPassword encryptPassword = new EncryptPassword();
+                    String encryptedPass = encryptPassword.getEncryptedPass(etPassword.getText().toString());
+
+                auth.signInWithEmailAndPassword(etEmail.getText().toString(), encryptedPass)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -77,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
                                             task.getException(), Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
+                                    Util.enableUserInteraction(LoginActivity.this);
                                 } else {
                                     progressBar.setVisibility(View.GONE);
                                     Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
@@ -87,6 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                }catch (Exception ex){
+                    ex.getMessage();
+                }
             }
         });
 
@@ -106,11 +117,36 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                SimpleEmail simpleEmail = new SimpleEmail();
+                simpleEmail.addTo();
+                simpleEmail.setFrom("ADMIM@ADMIN.COM");
+                simpleEmail.setSubject("NEW PASSWORD");
+
+                String text = "";
+                String possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                Random gerador = new Random();
+                int numberRandom;
+                for(int i = 0; i<8; i++){
+                    numberRandom = gerador.nextInt(63);
+                    text += possible.charAt(numberRandom);
+                }
+
+                simpleEmail.setMsg("Hello " + nome + "\n Your new password is: " + text);
+                simpleEmail.send();
+            }
+        });*/
+
     }
 
     private void iniViews() {
         etEmail = (EditText) findViewById(R.id.activityLoginEtEmail);
         etPassword = (EditText) findViewById(R.id.activityLoginEtPassword);
+        txtForgotPassword = (TextView) findViewById(R.id.txtForgotPass);
         btLogin = (Button) findViewById(R.id.btLogin);
         btSignUp = (Button) findViewById(R.id.btSignup);
         txtForgotPassword = (TextView) findViewById(R.id.txtForgotPass);
