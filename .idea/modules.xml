@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MemoryKeeper.iml" filepath="$PROJECT_DIR$/MemoryKeeper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/memory-keeper.iml" filepath="$PROJECT_DIR$/memory-keeper.iml" />
     </modules>
   </component>
 </project>

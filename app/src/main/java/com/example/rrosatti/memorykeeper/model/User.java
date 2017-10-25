@@ -16,12 +16,12 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private String qrCode; //Bitmap
-    private String fingerprint; // FingerprintManager
+    private boolean qrCode;
+    private String fingerprint;
 
     public User() {}
 
-    public User(String userId, String name, String username, String email, String password, String qrCode,
+    public User(String userId, String name, String username, String email, String password, boolean qrCode,
                 String fingerprint) {
         this.userId = userId;
         this.name = name;
@@ -64,11 +64,11 @@ public class User {
         this.password = password;
     }
 
-    public String getQrCode() {
+    public boolean getQrCode() {
         return qrCode;
     }
 
-    public void setQrCode(String qrCode) {
+    public void isQrCode(boolean qrCode) {
         this.qrCode = qrCode;
     }
 
@@ -84,5 +84,4 @@ public class User {
 
     public String getEmail() { return email; }
 
-    //TODO: create methods to convert String to Bitmap and FingerprintManager?
 }

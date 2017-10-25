@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
@@ -48,11 +49,13 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btGenerateQRCode;
     private Button btCancel;
     private Button btOk;
+    private ProgressBar progressBar;
     private DatabaseReference mDatabase;
     private DatabaseReference userDatabase;
     private FirebaseAuth auth;
     private int PERMISSION_SDCARD = 0;
     private String pathQrCode = "";
+    private boolean hasQrCode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +95,11 @@ public class SignUpActivity extends AppCompatActivity {
                 // convert content in QRCode
                 QRCodeWriter writer = new QRCodeWriter();
                 try {
-                    String username = etUsername.getText().toString();
-                    String password = etPassword.getText().toString();
-                    String qrCodeContent = "memory-keeper;" + username + ";" + password + ";";
+                    //String username = etUsername.getText().toString();
+                    EncryptPassword encryptPassword = new EncryptPassword();
+                    String email = etEmail.getText().toString();
+                    String password = encryptPassword.getEncryptedPass(etPassword.getText().toString());
+                    String qrCodeContent = "memory-keeper;" + email + ";" + password + ";";
                     BitMatrix bitMatrix = writer.encode(qrCodeContent,
                                                     BarcodeFormat.QR_CODE, 512, 512);
                     int width = bitMatrix.getWidth();
@@ -123,42 +128,45 @@ public class SignUpActivity extends AppCompatActivity {
                 if (!checkUserInput()) return;
 
                 try {
+                    isLoading();
                     EncryptPassword encryptPassword = new EncryptPassword();
                     String encryptedPass = encryptPassword.getEncryptedPass(etPassword.getText().toString());
 
-                final User user = new User();
-                user.setName(etName.getText().toString());
-                user.setUsername(etUsername.getText().toString());
-                user.setEmail(etEmail.getText().toString());
-                user.setPassword(encryptedPass);
-                user.setQrCode(pathQrCode);
-                user.setFingerprint("");
+                    final User user = new User();
+                    user.setName(etName.getText().toString());
+                    user.setUsername(etUsername.getText().toString());
+                    user.setEmail(etEmail.getText().toString());
+                    user.setPassword(encryptedPass);
+                    //user.setQrCode(pathQrCode);
+                    user.isQrCode(hasQrCode);
+                    user.setFingerprint("");
 
-                Util.disableUserInteraction(SignUpActivity.this);
-                auth.createUserWithEmailAndPassword(etEmail.getText().toString(), encryptedPass)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                    Util.disableUserInteraction(SignUpActivity.this);
+                    auth.createUserWithEmailAndPassword(etEmail.getText().toString(), encryptedPass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
-                                    task.getException(), Toast.LENGTH_SHORT).show();
-                                    System.out.println("Failed: " + task.getException());
-                                    Util.enableUserInteraction(SignUpActivity.this);
-                                } else {
-                                    //String key = userDatabase.push().getKey();
-                                    FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                                    String key = fUser.getUid();
-                                    user.setUserId(key);
-                                    userDatabase.child(key).setValue(user);
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
+                                        task.getException(), Toast.LENGTH_SHORT).show();
+                                        System.out.println("Failed: " + task.getException());
+                                        stopLoading();
+                                    } else {
+                                        //String key = userDatabase.push().getKey();
+                                        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                                        String key = fUser.getUid();
+                                        user.setUserId(key);
+                                        userDatabase.child(key).setValue(user);
 
-                                    Util.enableUserInteraction(SignUpActivity.this);
-                                    finish();
+                                        stopLoading();
+                                        finish();
+                                    }
+
                                 }
-
-                            }
-                        });
+                            });
                 }catch (Exception ex){
+                    progressBar.setVisibility(View.GONE);
                     ex.getMessage();
                 }
 
@@ -176,9 +184,11 @@ public class SignUpActivity extends AppCompatActivity {
         btGenerateQRCode = (Button) findViewById(R.id.activitySignUpBtGenerateQrCode);
         btCancel = (Button) findViewById(R.id.activitySignUpBtCancel);
         btOk = (Button) findViewById(R.id.activitySignUpBtOk);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarSignUp);
     }
 
     private void saveQRCode(Bitmap bmp) {
+        isLoading();
         // save imageView in gallery
         String cameraPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
         File cachePath = new File(cameraPath + "/memory-keeper-qr-code.jpg");
@@ -188,9 +198,13 @@ public class SignUpActivity extends AppCompatActivity {
             FileOutputStream outputStream = new FileOutputStream(cachePath);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.close();
+            hasQrCode = true;
+            progressBar.setVisibility(View.GONE);
+            Util.enableUserInteraction(SignUpActivity.this);
             Toast.makeText(getApplicationContext(), getString(R.string.qrcode_generated) + pathQrCode,
                     Toast.LENGTH_LONG).show();
         } catch (Exception e) {
+            stopLoading();
             e.printStackTrace();
         }
     }
@@ -237,5 +251,15 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void isLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        Util.disableUserInteraction(SignUpActivity.this);
+    }
+
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
+        Util.enableUserInteraction(SignUpActivity.this);
     }
 }
