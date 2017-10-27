@@ -3,8 +3,12 @@ package com.example.rrosatti.memorykeeper.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.rrosatti.memorykeeper.activity.SignUpActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,5 +47,15 @@ public class Util {
 
     public static boolean isViewEmpty(TextView textView) {
         return TextUtils.isEmpty(textView.getText().toString());
+    }
+
+    public static void isLoading(ProgressBar progressBar, Activity activity) {
+        progressBar.setVisibility(View.VISIBLE);
+        disableUserInteraction(activity);
+    }
+
+    public static void stopLoading(ProgressBar progressBar, Activity activity) {
+        progressBar.setVisibility(View.GONE);
+        enableUserInteraction(activity);
     }
 }

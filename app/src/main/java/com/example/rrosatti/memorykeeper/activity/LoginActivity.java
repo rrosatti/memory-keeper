@@ -80,8 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (!checkInput()) {
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
-                Util.disableUserInteraction(LoginActivity.this);
+                isLoading();
 
                 auth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -90,14 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
                                             task.getException(), Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.GONE);
-                                    Util.enableUserInteraction(LoginActivity.this);
+                                    stopLoading();
                                 } else {
-                                    progressBar.setVisibility(View.GONE);
+                                    stopLoading();
                                     Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
                                     inMemoryList.putExtra("userId", auth.getCurrentUser().getUid());
                                     startActivity(inMemoryList);
-                                    Util.enableUserInteraction(LoginActivity.this);
                                     finish();
                                 }
                             }
@@ -169,8 +166,22 @@ public class LoginActivity extends AppCompatActivity {
                 if(input.getText().toString().equals("")){
                     Toast.makeText(getBaseContext(),R.string.fields_should_not_be_empty,Toast.LENGTH_SHORT).show();
                 }else{
-                    //selectAndUpdate(input.getText().toString());
-                    auth.sendPasswordResetEmail(input.getText().toString());
+                    isLoading();
+                    auth.sendPasswordResetEmail(input.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this,
+                                        R.string.email_sent, Toast.LENGTH_SHORT).show();
+                                stopLoading();
+                            } else {
+                                Toast.makeText(LoginActivity.this,
+                                        R.string.check_email,
+                                        Toast.LENGTH_SHORT).show();
+                                stopLoading();
+                            }
+                        }
+                    });
                 }
             }
 
@@ -185,56 +196,12 @@ public class LoginActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void sendEmail(String toUser){
-        Properties props = email.getProps();
-        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication()
-            {
-                return new PasswordAuthentication(myEmail, myPassword);
-            }
-        });
-
-        session.setDebug(true);
-
-        email.setMyEmail(myEmail);
-        email.setToUser(toUser);
-        email.setSubject("NEW PASSWORD");
-
-        InternetAssync internetAssync = new InternetAssync(session);
-        internetAssync.execute(email);
+    public void isLoading() {
+        Util.isLoading(progressBar, LoginActivity.this);
     }
 
-    /**
-    public void selectAndUpdate(final String compare){
-        try {
-            EncryptPassword encryptPassword = new EncryptPassword();
-            email.setText();
-            final String encryptedPass = encryptPassword.getEncryptedPass(email.getText());
-            final Query query = mDatabase.child("users").orderByChild("email").equalTo(compare);
-
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            User user = ds.getValue(User.class);
-                            mDatabase.child("users").child(user.getUserId()).child("password").setValue(encryptedPass);
-                            Log.e("OK", "UPADTE WITH SUCESS");
-                            sendEmail(compare);
-                        }
-                    }else{
-                        Toast.makeText(getBaseContext(),"Email not found in our database",Toast.LENGTH_LONG).show();
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.w("Warning", "Event canceled!");
-                }
-            });
-        }catch (Exception ex){
-            Log.e("ERROR", "Problem " + ex.getMessage());
-        }
-
-    }*/
+    public void stopLoading() {
+        Util.stopLoading(progressBar, LoginActivity.this);
+    }
 
 }

@@ -62,5 +62,7 @@
     <string name="permission_granted">Permission Granted!!</string>
     <string name="permission_denied">Permission Denied!!</string>
     <string name="fields_should_not_be_empty">The fields should not be empty!</string>
+    <string name="check_email">"Email not sent. Please check if it is correct!"</string>
+    <string name="email_sent">"Email sent successfully"</string>
 
 </resources>

@@ -129,7 +129,6 @@ public class SignUpActivity extends AppCompatActivity {
                 user.isQrCode(hasQrCode);
                 user.setFingerprint("");
 
-                Util.disableUserInteraction(SignUpActivity.this);
                 auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -172,7 +171,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void saveQRCode(Bitmap bmp) {
-        isLoading();
+        Util.isLoading(progressBar, SignUpActivity.this);
         // save imageView in gallery
         String cameraPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
         File cachePath = new File(cameraPath + "/memory-keeper-qr-code.jpg");
@@ -183,8 +182,7 @@ public class SignUpActivity extends AppCompatActivity {
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.close();
             hasQrCode = true;
-            progressBar.setVisibility(View.GONE);
-            Util.enableUserInteraction(SignUpActivity.this);
+            stopLoading();
             Toast.makeText(getApplicationContext(), getString(R.string.qrcode_generated) + pathQrCode,
                     Toast.LENGTH_LONG).show();
         } catch (Exception e) {
@@ -237,13 +235,12 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+
     public void isLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-        Util.disableUserInteraction(SignUpActivity.this);
+        Util.isLoading(progressBar, SignUpActivity.this);
     }
 
     public void stopLoading() {
-        progressBar.setVisibility(View.GONE);
-        Util.enableUserInteraction(SignUpActivity.this);
+        Util.stopLoading(progressBar, SignUpActivity.this);
     }
 }
