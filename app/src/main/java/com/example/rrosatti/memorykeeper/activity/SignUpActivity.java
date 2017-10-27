@@ -1,7 +1,6 @@
 package com.example.rrosatti.memorykeeper.activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.model.User;
-import com.example.rrosatti.memorykeeper.utils.EncryptPassword;
 import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,9 +33,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -95,10 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
                 // convert content in QRCode
                 QRCodeWriter writer = new QRCodeWriter();
                 try {
-                    //String username = etUsername.getText().toString();
-                    EncryptPassword encryptPassword = new EncryptPassword();
                     String email = etEmail.getText().toString();
-                    String password = encryptPassword.getEncryptedPass(etPassword.getText().toString());
+                    String password = etPassword.getText().toString();
                     String qrCodeContent = "memory-keeper;" + email + ";" + password + ";";
                     BitMatrix bitMatrix = writer.encode(qrCodeContent,
                                                     BarcodeFormat.QR_CODE, 512, 512);
@@ -127,48 +120,39 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (!checkUserInput()) return;
 
-                try {
-                    isLoading();
-                    EncryptPassword encryptPassword = new EncryptPassword();
-                    String encryptedPass = encryptPassword.getEncryptedPass(etPassword.getText().toString());
+                isLoading();
 
-                    final User user = new User();
-                    user.setName(etName.getText().toString());
-                    user.setUsername(etUsername.getText().toString());
-                    user.setEmail(etEmail.getText().toString());
-                    user.setPassword(encryptedPass);
-                    //user.setQrCode(pathQrCode);
-                    user.isQrCode(hasQrCode);
-                    user.setFingerprint("");
+                final User user = new User();
+                user.setName(etName.getText().toString());
+                user.setUsername(etUsername.getText().toString());
+                user.setEmail(etEmail.getText().toString());
+                user.isQrCode(hasQrCode);
+                user.setFingerprint("");
 
-                    Util.disableUserInteraction(SignUpActivity.this);
-                    auth.createUserWithEmailAndPassword(etEmail.getText().toString(), encryptedPass)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
+                Util.disableUserInteraction(SignUpActivity.this);
+                auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
-                                        task.getException(), Toast.LENGTH_SHORT).show();
-                                        System.out.println("Failed: " + task.getException());
-                                        stopLoading();
-                                    } else {
-                                        //String key = userDatabase.push().getKey();
-                                        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-                                        String key = fUser.getUid();
-                                        user.setUserId(key);
-                                        userDatabase.child(key).setValue(user);
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(), getString(R.string.auth_failed) +
+                                            task.getException(), Toast.LENGTH_SHORT).show();
+                                    System.out.println("Failed: " + task.getException());
+                                    stopLoading();
+                                } else {
+                                    //String key = userDatabase.push().getKey();
+                                    FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    String key = fUser.getUid();
+                                    user.setUserId(key);
+                                    userDatabase.child(key).setValue(user);
 
-                                        stopLoading();
-                                        finish();
-                                    }
-
+                                    stopLoading();
+                                    finish();
                                 }
-                            });
-                }catch (Exception ex){
-                    progressBar.setVisibility(View.GONE);
-                    ex.getMessage();
-                }
+
+                            }
+                        });
 
 
             }

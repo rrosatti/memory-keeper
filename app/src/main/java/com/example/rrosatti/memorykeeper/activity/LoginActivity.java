@@ -1,6 +1,5 @@
 package com.example.rrosatti.memorykeeper.activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,31 +18,18 @@ import android.widget.Toast;
 import com.example.rrosatti.memorykeeper.R;
 import com.example.rrosatti.memorykeeper.adapter.InternetAssync;
 import com.example.rrosatti.memorykeeper.model.Email;
-import com.example.rrosatti.memorykeeper.model.User;
-import com.example.rrosatti.memorykeeper.utils.EncryptPassword;
 import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
-import java.util.Random;
 
-import javax.mail.Address;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -98,11 +82,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 Util.disableUserInteraction(LoginActivity.this);
-                try{
-                    EncryptPassword encryptPassword = new EncryptPassword();
-                    String encryptedPass = encryptPassword.getEncryptedPass(etPassword.getText().toString());
 
-                auth.signInWithEmailAndPassword(etEmail.getText().toString(), encryptedPass)
+                auth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -121,9 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                }catch (Exception ex){
-                    ex.getMessage();
-                }
+
             }
         });
 
@@ -190,7 +169,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(input.getText().toString().equals("")){
                     Toast.makeText(getBaseContext(),R.string.fields_should_not_be_empty,Toast.LENGTH_SHORT).show();
                 }else{
-                    selectAndUpdate(input.getText().toString());
+                    //selectAndUpdate(input.getText().toString());
+                    auth.sendPasswordResetEmail(input.getText().toString());
                 }
             }
 
@@ -224,6 +204,7 @@ public class LoginActivity extends AppCompatActivity {
         internetAssync.execute(email);
     }
 
+    /**
     public void selectAndUpdate(final String compare){
         try {
             EncryptPassword encryptPassword = new EncryptPassword();
@@ -254,6 +235,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("ERROR", "Problem " + ex.getMessage());
         }
 
-    }
+    }*/
 
 }
