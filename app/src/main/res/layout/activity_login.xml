@@ -35,21 +35,26 @@
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_pass"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_button_states"
+                android:textColor="@color/button_text"/>
 
             <Button
                 android:id="@+id/btSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signup"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/custom_button_states"
+                android:textColor="@color/button_text"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

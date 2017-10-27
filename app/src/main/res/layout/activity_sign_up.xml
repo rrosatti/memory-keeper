@@ -53,7 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/generate_qr_code"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button_states"
+            android:textColor="@color/button_text"/>
 
     </LinearLayout>
 
@@ -69,14 +71,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/custom_button_states"
+            android:textColor="@color/button_text"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/activitySignUpBtOk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/ok"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/custom_button_states"
+            android:textColor="@color/button_text"
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
 

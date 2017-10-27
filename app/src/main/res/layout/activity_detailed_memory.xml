@@ -47,7 +47,9 @@
         android:layout_height="wrap_content"
         android:text="@string/update"
         android:layout_marginTop="10dp"
-        android:padding="2dp"/>
+        android:padding="2dp"
+        android:background="@drawable/custom_button_states"
+        android:textColor="@color/button_text"/>
 
     <ProgressBar
         android:id="@+id/progressBarDetailedMemory"
