@@ -1,7 +1,9 @@
 package com.example.rrosatti.memorykeeper.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,15 +32,16 @@ import java.util.Map;
 
 public class MemoryListActivity extends AppCompatActivity {
 
+    private static final String MY_PREFERENCES = "myPreferences";
     private FloatingActionButton btNewMemory;
     private RecyclerView listOfMemories;
     private DatabaseReference database;
-    private DatabaseReference userReference;
-    private DatabaseReference memoriesDatabase;
     private String userId;
     private List<Memory> memories;
     private FirebaseRecyclerAdapter firebaseAdapter;
     private ProgressBar progressBar;
+    private FloatingActionButton btLogout;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +50,11 @@ public class MemoryListActivity extends AppCompatActivity {
 
         iniViews();
 
+        sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
         progressBar.setVisibility(View.VISIBLE);
         userId = getIntent().getStringExtra("userId");
 
         database = FirebaseDatabase.getInstance().getReference();
-        userReference = database.child("users").child(userId);
 
         memories = new ArrayList<>();
 
@@ -103,12 +106,23 @@ public class MemoryListActivity extends AppCompatActivity {
                 startActivityForResult(inNewMemory, 1);
             }
         });
+
+        btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("remember", false);
+                editor.apply();
+                finish();
+            }
+        });
     }
 
     private void iniViews() {
         btNewMemory = (FloatingActionButton) findViewById(R.id.btNewMemory);
         listOfMemories = (RecyclerView) findViewById(R.id.listMemories);
         progressBar = (ProgressBar) findViewById(R.id.progressBarMemoryList);
+        btLogout = (FloatingActionButton) findViewById(R.id.btLogout);
     }
 
     @Override

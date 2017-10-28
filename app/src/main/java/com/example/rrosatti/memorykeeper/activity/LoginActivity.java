@@ -1,7 +1,9 @@
 package com.example.rrosatti.memorykeeper.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -16,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
-import com.example.rrosatti.memorykeeper.adapter.InternetAssync;
-import com.example.rrosatti.memorykeeper.model.Email;
 import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,13 +28,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Properties;
-
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String MY_PREFERENCES = "myPreferences";
     private EditText etEmail;
     private EditText etPassword;
     private Button btLogin;
@@ -41,13 +39,12 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtForgotPassword;
     private ImageButton btLoginWithFingerprint;
     private ImageButton btLoginWithQRCode;
+    private CheckBox checkRemember;
     private DatabaseReference mDatabase;
     private DatabaseReference userDatabase;
     private FirebaseAuth auth;
-    private Email email = new Email();
-    private final static String myEmail = "xxxxxxx";
-    private final static String myPassword = "xxxxxxx";
-
+    private boolean isChecked = false;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,21 +53,35 @@ public class LoginActivity extends AppCompatActivity {
 
         iniViews();
 
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userDatabase = mDatabase.child("users");
+        sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
-        /**if (auth.getCurrentUser() != null) {
-            Intent in = new Intent(this, MemoryListActivity.class);
-            startActivity(in);
-            finish();
-        }*/
+        if (isUserLogged()) {
+            auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    // user logged in
+                    openMemoryListActivity();
+                }
+            });
+        }
+
 
         btSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent inSignUp = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(inSignUp);
+            }
+        });
+
+        checkRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                isChecked = b;
             }
         });
 
@@ -92,10 +103,9 @@ public class LoginActivity extends AppCompatActivity {
                                     stopLoading();
                                 } else {
                                     stopLoading();
-                                    Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
-                                    inMemoryList.putExtra("userId", auth.getCurrentUser().getUid());
-                                    startActivity(inMemoryList);
-                                    finish();
+                                    if (isChecked) saveOnSharedPreferences();
+
+                                    openMemoryListActivity();
                                 }
                             }
                         });
@@ -122,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         txtForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowAlertDialog();
+                showAlertDialog();
 
             }
         });
@@ -139,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         btLoginWithFingerprint = (ImageButton) findViewById(R.id.btLoginWithFingerprint);
         btLoginWithQRCode = (ImageButton) findViewById(R.id.btLoginWithQrCode);
         progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
+        checkRemember = (CheckBox) findViewById(R.id.checkRememberLogin);
     }
 
     private boolean checkInput() {
@@ -154,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    public void ShowAlertDialog(){
+    public void showAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle(getResources().getString(R.string.confirm));
         builder.setMessage("What email do you wanna receive a new password?");
@@ -202,6 +213,30 @@ public class LoginActivity extends AppCompatActivity {
 
     public void stopLoading() {
         Util.stopLoading(progressBar, LoginActivity.this);
+    }
+
+    public void saveOnSharedPreferences() {
+        //SharedPreferences prefs = this.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("remember", true);
+        editor.putString("userId", auth.getCurrentUser().getUid());
+        editor.apply();
+    }
+
+    public boolean isUserLogged() {
+        boolean remember = sharedPreferences.getBoolean("remember", false);
+        Toast.makeText(getApplicationContext(), "Remember: " + remember, Toast.LENGTH_SHORT).show();
+        if (!remember) return false;
+
+        String userId = sharedPreferences.getString("userId", null);
+        return (userId != null);
+    }
+
+    public void openMemoryListActivity() {
+        Intent inMemoryList = new Intent(LoginActivity.this, MemoryListActivity.class);
+        inMemoryList.putExtra("userId", auth.getCurrentUser().getUid());
+        startActivity(inMemoryList);
+        finish();
     }
 
 }

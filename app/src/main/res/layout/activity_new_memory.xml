@@ -78,8 +78,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:visibility="gone"
-                    android:textStyle="bold"
-                    android:textColor="@color/button_text"/>
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,15 +15,26 @@
         android:id="@+id/btNewMemory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_white_plus"/>
+        android:src="@drawable/ic_white_plus"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/btNewMemory"
+        android:src="@drawable/logout"/>
 
     <ProgressBar
         android:id="@+id/progressBarMemoryList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_centerInParent="true"
         android:visibility="gone"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

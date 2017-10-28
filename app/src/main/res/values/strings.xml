@@ -65,4 +65,6 @@
     <string name="check_email">"Email not sent. Please check if it is correct!"</string>
     <string name="email_sent">"Email sent successfully"</string>
 
+    <string name="remember_me">Remember-me</string>
+
 </resources>
