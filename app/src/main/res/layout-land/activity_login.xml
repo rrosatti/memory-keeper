@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/activityLoginEtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:layout_margin="10dp"
+                android:hint="@string/email"/>
+
+            <EditText
+                android:id="@+id/activityLoginEtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:layout_marginTop="10dp"
+                android:layout_margin="10dp"/>
+
+            <CheckBox
+                android:id="@+id/checkRememberLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/remember_me"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/txtForgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_pass"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/custom_button_states"
+                android:textColor="@color/button_text"
+                android:layout_margin="10dp"/>
+
+            <Button
+                android:id="@+id/btSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signup"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/custom_button_states"
+                android:textColor="@color/button_text"
+                android:layout_margin="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btLoginWithFingerprint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fingerprint_icon"
+                    android:layout_marginStart="5dp"
+                    android:background="@null"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/btLoginWithQrCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/qr_code_icon"
+                    android:layout_marginStart="5dp"
+                    android:background="@null"
+                    android:layout_weight="1"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="gone"/>
+
+
+</LinearLayout>
+
+
+
+
+
