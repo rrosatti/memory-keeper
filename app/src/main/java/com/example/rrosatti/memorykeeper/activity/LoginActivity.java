@@ -225,7 +225,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean isUserLogged() {
         boolean remember = sharedPreferences.getBoolean("remember", false);
-        Toast.makeText(getApplicationContext(), "Remember: " + remember, Toast.LENGTH_SHORT).show();
         if (!remember) return false;
 
         String userId = sharedPreferences.getString("userId", null);

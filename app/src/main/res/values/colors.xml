@@ -6,4 +6,6 @@
 
     <color name="splashScreenBackground">#EFF8E2</color>
     <color name="button_text">#FFF</color>
+    <color name="new_memory_button">#3F51B5</color>
+    <color name="logout_button">#F96F5D</color>
 </resources>

@@ -156,14 +156,6 @@ public class NewMemoryActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBarNewMemory);
     }
 
-    @Override
-    public void finish() {
-        Intent returnNewMemory = new Intent();
-        returnNewMemory.putExtra("newMemory", memory);
-        setResult(Activity.RESULT_OK, returnNewMemory);
-        super.finish();
-    }
-
     private boolean checkFields() {
         if (TextUtils.isEmpty(etTitle.getText().toString())
                 || TextUtils.isEmpty(etLongDescription.getText().toString())) {
@@ -232,6 +224,10 @@ public class NewMemoryActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
         Util.enableUserInteraction(NewMemoryActivity.this);
+
+        Intent returnNewMemory = new Intent();
+        returnNewMemory.putExtra("newMemory", memory);
+        setResult(Activity.RESULT_OK, returnNewMemory);
         finish();
     }
 
