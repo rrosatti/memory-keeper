@@ -65,7 +65,13 @@
     <string name="fields_should_not_be_empty">The fields should not be empty!</string>
     <string name="check_email">"Email not sent. Please check if it is correct!"</string>
     <string name="email_sent">"Email sent successfully"</string>
+    <string name="email_sent_qrcode">Soon you\'ll receive an email with your QRCode!</string>
+    <string name="qrcode_invalid">Sorry, but QRCode is invalid!</string>
 
     <string name="remember_me">Remember-me</string>
+
+    <!-- Email Texts -->
+    <string name="email_subject">QRCode - Memory Keeper</string>
+    <string name="email_body">Thanks for subscribing in our App!</string>
 
 </resources>

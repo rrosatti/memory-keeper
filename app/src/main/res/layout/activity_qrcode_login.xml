@@ -22,9 +22,17 @@
             android:text="@string/read_qrcode"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom_button_states"
-            android:textColor="@color/button_text"/>
+            android:textColor="@color/button_text"
+            android:padding="4dp"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarQRCodeLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

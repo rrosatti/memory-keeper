@@ -1,7 +1,6 @@
 package com.example.rrosatti.memorykeeper.model;
 
 import java.util.Properties;
-import java.util.Random;
 
 /**
  * Created by root on 26/10/17.
@@ -13,6 +12,7 @@ public class Email {
     private String toUser; //After do this with Array
     private String subject;
     private String text;
+    private String qrCodePath;
     private Properties props = new Properties();
 
     public Properties getProps() {
@@ -60,16 +60,15 @@ public class Email {
         return text;
     }
 
-    public void setText() {
-        Random random = new Random();
-        String textFinal = "";
-        int number;
+    public void setText(String text) {
+        this.text = text;
+    }
 
-        for(int i = 0; i<8; i++) {
-            number = random.nextInt(63);
-            textFinal += arrayPossible.charAt(number);
-        }
+    public String getQrCodePath() {
+        return qrCodePath;
+    }
 
-        this.text = textFinal;
+    public void setQrCodePath(String qrCodePath) {
+        this.qrCodePath = qrCodePath;
     }
 }

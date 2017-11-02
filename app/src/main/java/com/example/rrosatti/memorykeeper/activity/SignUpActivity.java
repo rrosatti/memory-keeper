@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rrosatti.memorykeeper.R;
+import com.example.rrosatti.memorykeeper.adapter.InternetAsync;
+import com.example.rrosatti.memorykeeper.model.Email;
 import com.example.rrosatti.memorykeeper.model.User;
 import com.example.rrosatti.memorykeeper.utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +36,10 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Properties;
+
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -51,6 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
     private int PERMISSION_SDCARD = 0;
     private String pathQrCode = "";
     private boolean hasQrCode = false;
+    private Email email = new Email();
+    private static final String myEmail = "xxxxx";
+    private static final String myPassword = "xxxxx";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                     String password = etPassword.getText().toString();
                     String qrCodeContent = "memory-keeper;" + email + ";" + password + ";";
                     BitMatrix bitMatrix = writer.encode(qrCodeContent,
-                                                    BarcodeFormat.QR_CODE, 512, 512);
+                                                    BarcodeFormat.QR_CODE, 256, 256);
                     int width = bitMatrix.getWidth();
                     int height = bitMatrix.getHeight();
                     Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
@@ -109,6 +119,7 @@ public class SignUpActivity extends AppCompatActivity {
                     saveQRCode(bmp);
 
                 } catch (Exception e) {
+                    Log.e("ERROR HERE", "Error: " + e.toString());
                     e.printStackTrace();
                 }
             }
@@ -145,6 +156,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     String key = fUser.getUid();
                                     user.setUserId(key);
                                     userDatabase.child(key).setValue(user);
+                                    sendEmail(etEmail.getText().toString());
+                                    Toast.makeText(getApplicationContext(),
+                                            R.string.email_sent_qrcode, Toast.LENGTH_LONG)
+                                            .show();
 
                                     stopLoading();
                                     finish();
@@ -174,7 +189,7 @@ public class SignUpActivity extends AppCompatActivity {
         Util.isLoading(progressBar, SignUpActivity.this);
         // save imageView in gallery
         String cameraPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
-        File cachePath = new File(cameraPath + "/memory-keeper-qr-code.jpg");
+        File cachePath = new File(cameraPath + "/memory-keeper-qr-code2.jpg");
         pathQrCode = cachePath.toString();
         try {
             cachePath.createNewFile();
@@ -187,6 +202,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             stopLoading();
+            Log.e("ERROR HERE", "Error: " + e.toString());
             e.printStackTrace();
         }
     }
@@ -242,5 +258,25 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void stopLoading() {
         Util.stopLoading(progressBar, SignUpActivity.this);
+    }
+
+    public void sendEmail(String toUser){
+        Properties props = email.getProps();
+        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myEmail, myPassword);
+            }
+        });
+
+        session.setDebug(true);
+
+        email.setMyEmail(myEmail);
+        email.setToUser(toUser);
+        email.setSubject(getString(R.string.email_subject));
+        email.setText(getString(R.string.email_body));
+        email.setQrCodePath(pathQrCode);
+
+        InternetAsync internetAsync = new InternetAsync(session);
+        internetAsync.execute(email);
     }
 }

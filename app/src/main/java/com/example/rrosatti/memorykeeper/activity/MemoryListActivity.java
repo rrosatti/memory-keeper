@@ -83,7 +83,7 @@ public class MemoryListActivity extends AppCompatActivity {
                         Log.d("Interesting", memory.getDescription());
                     }
                 } else{
-                    Toast.makeText(getApplicationContext(),"Deu ruim",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Deu ruim",Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
