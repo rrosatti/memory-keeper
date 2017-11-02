@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btSignUp;
     private ProgressBar progressBar;
     private TextView txtForgotPassword;
-    private ImageButton btLoginWithFingerprint;
+    //private ImageButton btLoginWithFingerprint;
     private ImageButton btLoginWithQRCode;
     private CheckBox checkRemember;
     private DatabaseReference mDatabase;
@@ -121,13 +121,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btLoginWithFingerprint.setOnClickListener(new View.OnClickListener() {
+        /**btLoginWithFingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(getApplicationContext(), FingerprintLoginActivity.class);
                 startActivity(in);
             }
-        });
+        });*/
 
         txtForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
         btLogin = (Button) findViewById(R.id.btLogin);
         btSignUp = (Button) findViewById(R.id.btSignup);
         txtForgotPassword = (TextView) findViewById(R.id.txtForgotPass);
-        btLoginWithFingerprint = (ImageButton) findViewById(R.id.btLoginWithFingerprint);
+        //btLoginWithFingerprint = (ImageButton) findViewById(R.id.btLoginWithFingerprint);
         btLoginWithQRCode = (ImageButton) findViewById(R.id.btLoginWithQrCode);
         progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
         checkRemember = (CheckBox) findViewById(R.id.checkRememberLogin);
