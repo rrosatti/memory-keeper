@@ -53,6 +53,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="logout">Are you sure you want to logout?</string>
+    <string name="which_email">Which email do you want to use to receive a new password?</string>
 
     <!-- Toast -->
     <string name="something_went_wrong">Something went wrong!</string>
@@ -64,7 +65,7 @@
     <string name="permission_denied">Permission Denied!!</string>
     <string name="fields_should_not_be_empty">The fields should not be empty!</string>
     <string name="check_email">"Email not sent. Please check if it is correct!"</string>
-    <string name="email_sent">"Email sent successfully"</string>
+    <string name="email_sent">Email sent successfully</string>
     <string name="email_sent_qrcode">Soon you\'ll receive an email with your QRCode!</string>
     <string name="qrcode_invalid">Sorry, but QRCode is invalid!</string>
 

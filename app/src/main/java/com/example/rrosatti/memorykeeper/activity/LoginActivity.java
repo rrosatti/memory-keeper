@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
     public void showAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle(getResources().getString(R.string.confirm));
-        builder.setMessage("What email do you wanna receive a new password?");
+        builder.setMessage(R.string.which_email);
         final EditText input = new EditText(this);
         builder.setView(input);
         builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {

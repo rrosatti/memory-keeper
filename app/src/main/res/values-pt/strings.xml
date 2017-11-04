@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Memory Keeper</string>
+    <string name="action_settings">Configuração</string>
+
+    <!-- TextView -->
+    <string name="forgot_pass"><u>Esqueceu a senha?</u></string>
+    <string name="fingerprint_login_description">One-touch Sign In</string>
+    <string name="no_fingerprint_sensor">Seu aparelho não tem sensor de Fingerprint</string>
+    <string name="fingerprint_permission_no_enabled">A permissão para autenticar com Fingerprint está desabilitada!</string>
+    <string name="register_at_least_one_fingerprint">Cadastre pelo menos um Fingerprint em Configurações</string>
+    <string name="lock_screen_security_not_enable">A segurança de Lock Screen está desabilitada em Configurações.</string>
+
+    <!-- EditText -->
+    <string name="name">nome</string>
+    <string name="username">nome de usuário</string>
+    <string name="password">senha</string>
+    <string name="repeat_password">repetir senha</string>
+    <string name="title">Titulo</string>
+    <string name="long_description">Descrição longa ...</string>
+    <string name="email">email</string>
+
+    <!-- Button -->
+    <string name="login">Entrar</string>
+    <string name="signup">Cadastrar</string>
+    <string name="register_fingerprint">Cadastrar Fingerprint</string>
+    <string name="generate_qr_code">Gerar QR Code</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Ok</string>
+    <string name="add_image">Adicionar Imagem</string>
+    <string name="read_qrcode">Ler QRCode</string>
+    <string name="update">Atualizar</string>
+
+    <!-- Label -->
+    <string name="label_detailed_memory">Detalhes da Lembrança</string>
+    <string name="label_fingerprint_login">Login com Fingerprint</string>
+    <string name="label_memory_list">Lista de Lembranças</string>
+    <string name="label_new_memory">Nova Lembrança</string>
+    <string name="label_qrcode_login">Login com QRCode</string>
+    <string name="label_sign_up">Cadastrar</string>
+
+    <!-- Dialog -->
+    <string name="confirm">Confirmar</string>
+    <string name="are_you_sure">Você tem certeza que deseja proceguir?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="logout">Tem certeza que deseja sair?</string>
+    <string name="which_email">Qual email você deseja usar para atualizar a senha?</string>
+
+    <!-- Toast -->
+    <string name="something_went_wrong">Ocorreu algo inesperado!</string>
+    <string name="fill_all_fields">Você deve preencher todos os campos!</string>
+    <string name="auth_failed">Falha de Autenticação</string>
+    <string name="qrcode_generated">"O QRCode foi criado e salvo em: "</string>
+    <string name="password_does_not_match">As senhas não estão batendo!</string>
+    <string name="permission_granted">Permissão concedida!</string>
+    <string name="permission_denied">Permissão negada!</string>
+    <string name="fields_should_not_be_empty">Os campos não podem estar vazios!</string>
+    <string name="check_email">O email não foi enviado. Por favor, verifique se você digitou corretamente!</string>
+    <string name="email_sent">Email enviado com sucesso</string>
+    <string name="email_sent_qrcode">Logo você irá receber um email com o QRCode!</string>
+    <string name="qrcode_invalid">QRCode inválido!</string>
+
+    <string name="remember_me">Lembrar</string>
+
+    <!-- Email Texts -->
+    <string name="email_subject">QRCode - Memory Keeper</string>
+    <string name="email_body">Obrigado por se cadastrar no nosso App!</string>
+
+</resources>
