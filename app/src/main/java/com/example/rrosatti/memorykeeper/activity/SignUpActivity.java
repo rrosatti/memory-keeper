@@ -155,7 +155,9 @@ public class SignUpActivity extends AppCompatActivity {
                                     String key = fUser.getUid();
                                     user.setUserId(key);
                                     userDatabase.child(key).setValue(user);
-                                    sendEmail(etEmail.getText().toString());
+                                    if (!TextUtils.isEmpty(pathQrCode))
+                                        sendEmail(etEmail.getText().toString());
+
                                     Toast.makeText(getApplicationContext(),
                                             R.string.email_sent_qrcode, Toast.LENGTH_LONG)
                                             .show();
